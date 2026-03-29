@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Subhasree Sengupta — Candelia Brand Identity</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:     #0c0a08;
+  --bg2:    #151210;
+  --bg3:    #1c1813;
+  --surf:   #231e17;
+  --amber:  #c9875a;
+  --amb2:   #e4ad7a;
+  --cream:  #f0e6d2;
+  --crm2:   #cfc0a4;
+  --muted:  #7a6e5e;
+  --bdr:    rgba(201,135,90,.18);
+  --bdr2:   rgba(201,135,90,.08);
+  --serif:  'Cormorant Garamond', Georgia, serif;
+  --sans:   'Outfit', system-ui, sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--cream);line-height:1.6;overflow-x:hidden}
+
+/* ── NAV ─────────────────────────────────────────────────── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:18px 48px;background:rgba(12,10,8,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--bdr2)}
+.nav-logo{font-family:var(--serif);font-size:18px;font-weight:400;color:var(--cream);text-decoration:none;letter-spacing:.04em}
+.nav-logo em{font-style:italic;color:var(--amber)}
+nav ul{list-style:none;display:flex;gap:28px}
+nav ul a{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s}
+nav ul a:hover{color:var(--cream)}
+
+/* ── HERO ────────────────────────────────────────────────── */
+.hero{min-height:100vh;display:flex;align-items:flex-end;position:relative;overflow:hidden;padding-bottom:80px}
+.hbg{position:absolute;inset:0;background:
+  radial-gradient(ellipse at 65% 30%,rgba(100,50,15,.4) 0%,transparent 60%),
+  linear-gradient(160deg,#0c0a08 0%,#1a1208 50%,#0c0a08 100%)}
+.hcircle{position:absolute;top:12%;right:6%;width:480px;height:480px;border-radius:50%;border:1px solid var(--bdr);opacity:.45}
+.hcircle::after{content:'';position:absolute;inset:36px;border-radius:50%;border:1px solid var(--bdr)}
+.hcont{position:relative;z-index:2;max-width:1280px;margin:0 auto;padding:0 48px;width:100%}
+.hkick{display:flex;align-items:center;gap:16px;margin-bottom:20px}
+.hkick::before{content:'';width:48px;height:1px;background:var(--amber)}
+.label{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);font-weight:400}
+.hero h1{font-family:var(--serif);font-weight:300;font-size:clamp(52px,9vw,115px);line-height:.95;letter-spacing:-.03em;margin-bottom:6px}
+.hero h1 em{font-style:italic;display:block;color:var(--amb2)}
+.hero-sub{font-size:16px;font-weight:300;color:var(--muted);letter-spacing:.05em;margin-top:18px;margin-bottom:44px}
+.hero-meta{display:flex;gap:44px;padding-top:36px;border-top:1px solid var(--bdr2);flex-wrap:wrap}
+.meta-i .ml{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--amber);margin-bottom:5px}
+.meta-i .mv{font-size:14px;color:var(--crm2);font-weight:300}
+.hscroll{position:absolute;bottom:36px;right:48px;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);writing-mode:vertical-rl;display:flex;align-items:center;gap:10px}
+.hscroll::after{content:'';width:1px;height:56px;background:linear-gradient(to bottom,var(--amber),transparent)}
+
+/* ── LAYOUT ──────────────────────────────────────────────── */
+.w{max-width:1280px;margin:0 auto;padding:0 48px}
+section{padding:120px 0}
+section.tight{padding:72px 0}
+section.bg2{background:var(--bg2)}
+section.bg3{background:var(--bg3)}
+
+/* ── SECTION HEADER ──────────────────────────────────────── */
+.sh{display:flex;align-items:flex-start;justify-content:space-between;gap:40px;margin-bottom:72px}
+.sh-l{max-width:540px}
+.sh-r{font-size:15px;color:var(--muted);font-weight:300;max-width:340px;line-height:1.85;padding-top:10px}
+.sh-n{font-family:var(--serif);font-size:13px;color:var(--amber);letter-spacing:.1em;margin-bottom:10px}
+.sh-t{font-family:var(--serif);font-weight:300;font-size:clamp(30px,4vw,52px);line-height:1.1;letter-spacing:-.02em;margin-top:6px}
+.sh-t em{font-style:italic;color:var(--amb2)}
+
+/* ── OVERVIEW BAND ───────────────────────────────────────── */
+.ovband{border-top:1px solid var(--bdr);border-bottom:1px solid var(--bdr);padding:60px 0}
+.ovgrid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;align-items:start}
+.ovintro p{font-size:18px;font-weight:300;line-height:1.9;color:var(--crm2)}
+.ovintro p em{color:var(--amb2);font-style:italic}
+.ovsnum{font-family:var(--serif);font-size:48px;font-weight:300;line-height:1;color:var(--amber)}
+.ovsunit{font-size:14px;color:var(--muted);margin-top:8px;letter-spacing:.06em}
+
+/* ── COLOUR SWATCHES ─────────────────────────────────────── */
+.palette{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:48px}
+.sw-card{border-radius:6px;overflow:hidden;border:1px solid var(--bdr2)}
+.sw-block{height:100px}
+.sw-info{padding:10px 12px;background:var(--surf)}
+.sw-info .sn{font-size:13px;color:var(--crm2);font-weight:400}
+.sw-info .sh{font-size:11px;color:var(--muted);font-family:monospace;margin-top:3px}
+.sw-info .sd{font-size:11px;color:var(--muted);margin-top:2px}
+
+/* ── IMAGE COMPONENTS ────────────────────────────────────── */
+.img-full{width:100%;display:block;border-radius:4px}
+.img-hover{overflow:hidden;border-radius:4px;cursor:zoom-in}
+.img-hover img{width:100%;display:block;transition:transform .65s cubic-bezier(.25,.46,.45,.94)}
+.img-hover:hover img{transform:scale(1.04)}
+.cap{display:flex;justify-content:space-between;align-items:baseline;margin-top:14px}
+.cap-t{font-size:14px;color:var(--crm2);font-weight:400}
+.cap-s{font-size:12px;color:var(--muted);font-weight:300}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.ci-row{display:grid;grid-template-columns:1fr 1.6fr;gap:80px;align-items:center}
+.ci-row p{font-size:16px;font-weight:300;line-height:1.9;color:var(--crm2)}
+.ci-row p+p{margin-top:16px}
+
+/* ── DIVIDER ─────────────────────────────────────────────── */
+.div{display:flex;align-items:center;gap:20px;padding:64px 0 64px}
+.div::before,.div::after{content:'';flex:1;height:1px;background:var(--bdr)}
+.div span{font-family:var(--serif);font-size:13px;color:var(--amber);letter-spacing:.15em;text-transform:uppercase;white-space:nowrap}
+
+/* ── QUOTE ───────────────────────────────────────────────── */
+.quote{border-left:2px solid var(--amber);padding:22px 32px;margin:48px 0}
+.quote p{font-family:var(--serif);font-size:clamp(18px,2.5vw,26px);font-weight:300;font-style:italic;line-height:1.65;color:var(--cream)}
+.quote cite{display:block;margin-top:12px;font-size:12px;color:var(--amber);font-style:normal;letter-spacing:.12em;text-transform:uppercase}
+
+/* ── TOOLS BADGES ────────────────────────────────────────── */
+.tools{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}
+.tbadge{padding:7px 16px;border:1px solid var(--bdr);border-radius:2px;font-size:12px;letter-spacing:.08em;color:var(--muted)}
+
+/* ── PIECE LABEL ─────────────────────────────────────────── */
+.plabel{display:inline-flex;align-items:center;gap:10px;margin-bottom:18px}
+.plabel::before{content:'';width:24px;height:1px;background:var(--amber)}
+
+/* ── FOOTER ──────────────────────────────────────────────── */
+footer{background:#080604;padding:80px 0 40px;border-top:1px solid var(--bdr)}
+.fgrid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:60px;margin-bottom:60px}
+.fname{font-family:var(--serif);font-size:26px;font-weight:300;color:var(--cream);letter-spacing:-.01em;margin-bottom:12px}
+.fname em{font-style:italic;color:var(--amber)}
+.fbrand p{font-size:14px;color:var(--muted);font-weight:300;line-height:1.85;max-width:280px}
+.fcol h4{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--amber);margin-bottom:20px}
+.fcol ul{list-style:none}
+.fcol li{font-size:14px;color:var(--muted);font-weight:300;padding:6px 0;border-bottom:1px solid var(--bdr2)}
+.fcol li:last-child{border-bottom:none}
+.fbot{display:flex;justify-content:space-between;align-items:center;padding-top:24px;border-top:1px solid var(--bdr2)}
+.fbot p{font-size:12px;color:var(--muted)}
+
+/* ── LIGHTBOX ────────────────────────────────────────────── */
+.lbx{position:fixed;inset:0;z-index:999;background:rgba(8,6,4,.97);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;padding:40px;cursor:zoom-out}
+.lbx.open{opacity:1;pointer-events:all}
+.lbx img{max-width:100%;max-height:100%;object-fit:contain;border-radius:4px}
+.lbx-close{position:absolute;top:24px;right:32px;font-size:32px;color:var(--amber);cursor:pointer;background:none;border:none;line-height:1}
+
+/* ── BACK TOP ────────────────────────────────────────────── */
+#btt{position:fixed;bottom:32px;right:32px;z-index:200;width:46px;height:46px;border:1px solid var(--bdr);border-radius:50%;background:var(--bg2);display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transition:opacity .3s,transform .2s;text-decoration:none;color:var(--amber);font-size:16px}
+#btt.vis{opacity:1}
+#btt:hover{transform:translateY(-3px)}
+
+/* ── SCROLL REVEAL ───────────────────────────────────────── */
+.rev{opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s ease}
+.rev.in{opacity:1;transform:none}
+
+/* ── RESPONSIVE ──────────────────────────────────────────── */
+@media(max-width:900px){
+  .w{padding:0 24px}
+  nav{padding:16px 24px}
+  nav ul{display:none}
+  .hcont{padding:0 24px}
+  section{padding:80px 0}
+  .ovgrid{grid-template-columns:1fr 1fr}
+  .ovintro{grid-column:1/-1}
+  .sh{flex-direction:column}
+  .palette{grid-template-columns:repeat(3,1fr)}
+  .two-col{grid-template-columns:1fr}
+  .ci-row{grid-template-columns:1fr;gap:40px}
+  .fgrid{grid-template-columns:1fr;gap:40px}
+  .hero-meta{gap:24px}
+  .fbot{flex-direction:column;gap:8px;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- LIGHTBOX -->
+<div class="lbx" id="lbx">
+  <button class="lbx-close" onclick="closeLb()">×</button>
+  <img id="lbimg" src="" alt="">
+</div>
+
+<!-- BACK TO TOP -->
+<a href="#top" id="btt">↑</a>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#top">Subhasree <em>Sengupta</em></a>
+  <ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#logo">Logo</a></li>
+    <li><a href="#stationery">Stationery</a></li>
+    <li><a href="#social">Social</a></li>
+    <li><a href="#advertising">Advertising</a></li>
+    <li><a href="#packaging">Packaging</a></li>
+    <li><a href="#merchandise">Merchandise</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════════
+     HERO
+══════════════════════════════════════════════════════════════ -->
+<section style="padding:0" id="top">
+  <div class="hero">
+    <div class="hbg"></div>
+    <div class="hcircle"></div>
+    <div class="hcont">
+      <div class="hkick"><span class="label">Brand Identity · 2025</span></div>
+      <h1>Candelia<em>— Crafted with Warmth</em></h1>
+      <p class="hero-sub">Complete visual identity system for a handcrafted candle company · Bangalore, India</p>
+      <div class="hero-meta">
+        <div class="meta-i"><div class="ml">Deliverables</div><div class="mv">Logo · Stationery · Packaging · Social · Print</div></div>
+        <div class="meta-i"><div class="ml">Tools</div><div class="mv">Adobe Photoshop · Adobe Illustrator</div></div>
+        <div class="meta-i"><div class="ml">Year</div><div class="mv">2025</div></div>
+        <div class="meta-i"><div class="ml">Designer</div><div class="mv">Subhasree Sengupta</div></div>
+      </div>
+    </div>
+    <div class="hscroll">Scroll</div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     OVERVIEW BAND
+══════════════════════════════════════════════════════════════ -->
+<section class="tight" id="overview">
+  <div class="w">
+    <div class="ovband">
+      <div class="ovgrid">
+        <div class="ovintro rev">
+          <p>Candelia is a Bangalore-based handcrafted candle brand built around the idea that a single flame can shift the energy of an entire space. The brief called for a complete visual identity — from logo and colour palette, through printed stationery and packaging, to outdoor advertising and social assets.</p>
+          <p style="margin-top:16px">Every decision was rooted in three core values: <em>warmth, hope, and quiet luxury</em>. The result is a cohesive system that feels tactile and artisan at every touchpoint.</p>
+        </div>
+        <div class="rev"><div class="ovsnum">12+</div><div class="ovsunit">Design Deliverables</div></div>
+        <div class="rev"><div class="ovsnum">5</div><div class="ovsunit">Brand Colours</div></div>
+        <div class="rev"><div class="ovsnum">3</div><div class="ovsunit">Print Formats</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     01 — LOGO IDENTITY
+══════════════════════════════════════════════════════════════ -->
+<section class="bg2" id="logo">
+  <div class="w">
+    <div class="sh">
+      <div class="sh-l">
+        <div class="sh-n">01 / Logo Identity</div>
+        <h2 class="sh-t">The <em>Logo Story</em></h2>
+      </div>
+      <p class="sh-r">The wordmark merges the letter C with a candle flame — a mark that is immediately legible and deeply symbolic. The C cradling the flame as warmth cradling life, hope, and positivity.</p>
+    </div>
+
+    <div class="img-hover rev" onclick="openLb(this.querySelector('img'))" style="background:#fff;border-radius:4px;overflow:hidden">
+      <img src="images/01-logo-story.jpg" alt="Candelia logo breakdown — C + flame construction, colour variants, logo story" style="width:100%;display:block">
+    </div>
+    <div class="cap rev"><span class="cap-t">Logo Breakdown &amp; Brand Story</span><span class="cap-s">Construction · Colour variants · Typography · Brand values</span></div>
+
+    <div class="quote rev">
+      <p>"The name Candelia is inspired by the word 'candle' — combined with a soft, elegant ending that represents light, warmth, and grace."</p>
+      <cite>Brand Concept Note</cite>
+    </div>
+
+    <!-- Colour Palette -->
+    <div class="sh-n rev" style="margin-top:24px">Colour Palette</div>
+    <div class="palette rev">
+      <div class="sw-card"><div class="sw-block" style="background:#f5ede0"></div><div class="sw-info"><div class="sn">Ivory Glow</div><div class="sh">#f5ede0</div><div class="sd">Primary background</div></div></div>
+      <div class="sw-card"><div class="sw-block" style="background:#dcc5a8"></div><div class="sw-info"><div class="sn">Warm Sand</div><div class="sh">#dcc5a8</div><div class="sd">Secondary surfaces</div></div></div>
+      <div class="sw-card"><div class="sw-block" style="background:#b8956a"></div><div class="sw-info"><div class="sn">Spiced Honey</div><div class="sh">#b8956a</div><div class="sd">Accent tone</div></div></div>
+      <div class="sw-card"><div class="sw-block" style="background:#7a4f3a"></div><div class="sw-info"><div class="sn">Cocoa Deep</div><div class="sh">#7a4f3a</div><div class="sd">Logo &amp; headlines</div></div></div>
+      <div class="sw-card"><div class="sw-block" style="background:#3d2219"></div><div class="sw-info"><div class="sn">Dark Roast</div><div class="sh">#3d2219</div><div class="sd">Depth &amp; contrast</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     02 — STATIONERY
+══════════════════════════════════════════════════════════════ -->
+<section id="stationery">
+  <div class="w">
+    <div class="sh">
+      <div class="sh-l">
+        <div class="sh-n">02 / Stationery Suite</div>
+        <h2 class="sh-t">Business Cards<br>&amp; <em>Letterhead</em></h2>
+      </div>
+      <p class="sh-r">The stationery suite carries the warm palette through every physical touchpoint — from the visiting card a customer holds, to the envelope they unfold. Quiet luxury at every scale.</p>
+    </div>
+
+    <div class="div"><span>Business Card</span></div>
+    <div class="img-hover rev" onclick="openLb(this.querySelector('img'))">
+      <img class="img-full" src="images/02-business-card.jpg" alt="Candelia visiting card — front logo side, back contact side, wood grain mockup">
+    </div>
+    <div class="cap rev"><span class="cap-t">Visiting Card</span><span class="cap-s">Front logo side · Back contact side · Wood grain mockup</span></div>
+
+    <div class="div"><span>Letterhead &amp; Envelope</span></div>
+    <div class="img-hover rev" onclick="openLb(this.querySelector('img'))">
+      <img class="img-full" src="images/03-letterhead.jpg" alt="Candelia letterhead A4 and DL envelope — front and back">
+    </div>
+    <div class="cap rev"><span class="cap-t">Letterhead &amp; Envelope</span><span class="cap-s">A4 letterhead · DL envelope front &amp; back with address bar</span></div>
+
+    <div class="div"><span>Employee Identity Card</span></div>
+    <div class="img-hover rev" onclick="openLb(this.querySelector('img'))">
+      <img class="img-full" src="images/04-id-card.jpg" alt="Candelia employee identity card — front with photo, back with QR, lanyard mockup">
+    </div>
+    <div class="cap rev"><span class="cap-t">Employee Identity Card</span><span class="cap-s">Portrait format · Front with photo · Back with QR code · Lanyard holder mockup</span></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     03 — SOCIAL MEDIA
+══════════════════════════════════════════════════════════════ -->
+<section class="bg2" id="social">
+  <div class="w">
+    <div class="sh">
+      <div class="sh-l">
+        <div class="sh-n">03 / Social Media</div>
+        <h2 class="sh-t">Instagram <em>Campaigns</em></h2>
+      </div>
+      <p class="sh-r">Four distinct Instagram poster layouts — from a soft lavender editorial post to a deep winter campaign — each maintaining brand voice while adapting to seasonal content themes.</p>
+    </div>
+
+    <div class="img-hover rev" onclick="openLb(this.querySelector('img'))">
+      <img class="img-full" src="images/06-social-media.jpg" alt="Candelia Instagram social media suite — 4 posts and phone feed mockup">
+    </div>
+    <div class="cap rev"><span class="cap-t">Social Media Suite</span><span class="cap-s">4 × Instagram posts · Phone feed mockup · 1080 × 1080 px square format</span></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     04 — ADVERTISING
+══════════════════════════════════════════════════════════════ -->
+<section id="advertising">
+  <div class="w">
+    <div class="sh">
+      <div class="sh-l">
+        <div class="sh-n">04 / Advertising</div>
+        <h2 class="sh-t">Posters, Banners<br>&amp; <em>Billboards</em></h2>
+      </div>
+      <p class="sh-r">The brand scales effortlessly from an Instagram square to a city billboard. Each format uses the same warm colour story, ensuring instant recognition across all media placements.</p>
+    </div>
+
+    <div class="div"><span>Promotional Banner</span></div>
+    <div class="img-hover rev" onclick="openLb(this.querySelector('img'))">
+      <img class="img-full" src="images/07-banner.jpg" alt="Candelia wide-format promotional banner with bus shelter outdoor mockup">
+    </div>
+    <div class="cap rev"><span class="cap-t">Promotional Banner</span><span class="cap-s">Wide format · New arrivals &amp; offers · Bus shelter outdoor mockup</span></div>
+
+    <div class="div"><span>Promotional Poster</span></div>
+    <div class="img-hover rev" onclick="openLb(this.querySelector('img'))">
+      <img class="img-full" src="images/08-poster.jpg" alt="Candelia flash sale poster — Vanilla Latte Glow 50% off with street display mockup">
+    </div>
+    <div class="cap rev"><span class="cap-t">Flash Sale Poster</span><span class="cap-s">Scented Candles 50% off · Vanilla Latte Glow · Street display mockup</span></div>
+
+    <div class="div"><span>Outdoor Billboard</span></div>
+    <div class="img-hover rev" onclick="openLb(this.querySelector('img'))">
+      <img class="img-full" src="images/09-billboard.jpg" alt="Candelia outdoor billboard Light the Mood — night cityscape mockup">
+    </div>
+    <div class="cap rev"><span class="cap-t">Outdoor Billboard</span><span class="cap-s">"Light the Mood · Premium Scented Candles" · Night cityscape mockup · Large format</span></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     05 — BROCHURE
+══════════════════════════════════════════════════════════════ -->
+<section class="bg3" id="brochure">
+  <div class="w">
+    <div class="sh">
+      <div class="sh-l">
+        <div class="sh-n">05 / Print Collateral</div>
+        <h2 class="sh-t">Fragrance <em>Brochure</em></h2>
+      </div>
+      <p class="sh-r">A three-panel trifold brochure walks customers through Candelia's fragrance collections — Premium and Regular — with an About Us panel, contact details, and a Customise Your Candles section.</p>
+    </div>
+    <div class="img-hover rev" onclick="openLb(this.querySelector('img'))">
+      <img class="img-full" src="images/05-brochure.png" alt="Candelia trifold brochure — flat panels and scattered mockup on wood">
+    </div>
+    <div class="cap rev"><span class="cap-t">Trifold Brochure</span><span class="cap-s">Fragrance collection · Premium &amp; Regular scents · Customise your candle panel · Flat and scatter mockup</span></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     06 — PRODUCT PACKAGING
+══════════════════════════════════════════════════════════════ -->
+<section id="packaging">
+  <div class="w">
+    <div class="sh">
+      <div class="sh-l">
+        <div class="sh-n">06 / Product Packaging</div>
+        <h2 class="sh-t">Box Design &amp;<br><em>Dieline</em></h2>
+      </div>
+      <p class="sh-r">The Mocha Ember candle box was designed to be both protective and presentable. Each face of the cube tells a piece of the brand story — product name, scent description, About Us, and the candle photography.</p>
+    </div>
+
+    <div class="two-col rev">
+      <div class="img-hover" onclick="openLb(this.querySelector('img'))">
+        <img class="img-full" src="images/10-packaging-dieline.png" alt="Candelia Mocha Ember box dieline — full colour artwork flat">
+      </div>
+      <div class="img-hover" onclick="openLb(this.querySelector('img'))">
+        <img class="img-full" src="images/11-packaging-final.png" alt="Candelia packaging production dieline with dimensions and 3D fold mockup">
+      </div>
+    </div>
+    <div class="two-col" style="margin-top:14px">
+      <div class="cap"><span class="cap-t">Packaging Artwork</span><span class="cap-s">Full colour · Flat dieline · Mocha Ember scent</span></div>
+      <div class="cap"><span class="cap-t">Production Dieline</span><span class="cap-s">Annotated with dimensions · 3D fold mockup</span></div>
+    </div>
+
+    <div class="div"><span>Packaging in Context</span></div>
+    <div class="img-hover rev" onclick="openLb(this.querySelector('img'))">
+      <img class="img-full" src="images/12-merchandise-mockups.jpg" alt="Candelia candle packaging styled mockups in context">
+    </div>
+    <div class="cap rev"><span class="cap-t">Packaging Mockups</span><span class="cap-s">Product in use · Styled photography mockups</span></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     07 — MERCHANDISE
+══════════════════════════════════════════════════════════════ -->
+<section class="bg2" id="merchandise">
+  <div class="w">
+    <div class="sh">
+      <div class="sh-l">
+        <div class="sh-n">07 / Brand Merchandise</div>
+        <h2 class="sh-t">The Full <em>Brand World</em></h2>
+      </div>
+      <p class="sh-r">The identity was extended across a complete merchandise suite — retail signage, gift boxes, wearables, stationery, vehicle wrap and shopping bags — proving the brand works at every scale and surface.</p>
+    </div>
+
+    <div class="img-hover rev" onclick="openLb(this.querySelector('img'))">
+      <img class="img-full" src="images/13-merchandise-apparel.jpg" alt="Candelia brand merchandise — store sign, Red Velvet gift box, Hazelnut Roast retail packaging">
+    </div>
+    <div class="cap rev"><span class="cap-t">Retail &amp; Gifting Merchandise</span><span class="cap-s">Store signage · Gift boxes · Red Velvet · Hazelnut Roast branded packaging</span></div>
+
+    <div class="div"><span>Wearables &amp; Brand Goods</span></div>
+    <div class="ci-row rev">
+      <div>
+        <div class="plabel"><span class="label">Brand Extensions</span></div>
+        <p>Every piece of merchandise was designed to live in the same visual world — white grounds, warm brown logo, clean typography. The result is a brand that feels unified whether you see it on a T-shirt, a delivery van, or a notepad.</p>
+        <p style="margin-top:16px">The white-on-warm-brown palette makes the logo pop on both light apparel and retail packaging, ensuring maximum visibility at every touchpoint.</p>
+        <div class="tools">
+          <span class="tbadge">Adobe Photoshop</span>
+          <span class="tbadge">Adobe Illustrator</span>
+          <span class="tbadge">Smart Object Mockups</span>
+          <span class="tbadge">Vector Artwork</span>
+          <span class="tbadge">Print-Ready Files</span>
+        </div>
+      </div>
+      <div class="img-hover" onclick="openLb(this.querySelector('img'))">
+        <img class="img-full" src="images/12-merchandise-mockups.jpg" alt="Candelia brand apparel and goods — T-shirt cap notepad pen delivery van gift bag">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     CLOSING SECTION
+══════════════════════════════════════════════════════════════ -->
+<section>
+  <div class="w">
+    <div class="ci-row rev">
+      <div>
+        <div class="plabel"><span class="label">Project Outcome</span></div>
+        <h2 class="sh-t" style="margin-bottom:28px">A brand that<br>feels like a <em>feeling</em></h2>
+        <p>Candelia now has a complete visual identity system — ready for print, digital, retail, and outdoor use. Every deliverable speaks the same visual language: warm, handcrafted, quietly luxurious.</p>
+        <p style="margin-top:16px">This project received 22 appreciations and 1,500+ views on Behance — the most engaged work in this portfolio to date.</p>
+        <div style="margin-top:36px;padding:20px 24px;border:1px solid var(--bdr);border-radius:4px;background:var(--bg2)">
+          <div class="label" style="margin-bottom:8px">Open to work · Let's collaborate</div>
+          <div style="font-size:15px;color:var(--crm2);font-weight:300">behance.net/subhasrsengupt2</div>
+        </div>
+      </div>
+      <div class="img-hover" onclick="openLb(this.querySelector('img'))">
+        <img class="img-full" src="images/09-billboard.jpg" alt="Candelia billboard final render at night">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════════════════════════ -->
+<footer id="contact">
+  <div class="w">
+    <div class="fgrid">
+      <div class="fbrand">
+        <div class="fname">Subhasree <em>Sengupta</em></div>
+        <p>Graphic designer specialising in brand identity, visual systems, and print design. Based in Bangalore, India. Available for freelance projects.</p>
+        <div class="tools" style="margin-top:20px">
+          <span class="tbadge">Photoshop</span>
+          <span class="tbadge">Illustrator</span>
+        </div>
+      </div>
+      <div class="fcol">
+        <h4>Capabilities</h4>
+        <ul>
+          <li>Brand Identity</li>
+          <li>Logo Design</li>
+          <li>Print Collateral</li>
+          <li>Packaging Design</li>
+          <li>Social Media Design</li>
+          <li>Illustration &amp; Vector Art</li>
+        </ul>
+      </div>
+      <div class="fcol">
+        <h4>Find Me</h4>
+        <ul>
+          <li>Bangalore, India</li>
+          <li>Behance → subhasrsengupt2</li>
+          <li>Available for freelance</li>
+        </ul>
+      </div>
+    </div>
+    <div class="fbot">
+      <p>© 2025 Subhasree Sengupta. All rights reserved.</p>
+      <p>Candelia brand identity — Portfolio work</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Scroll reveal
+const obs = new IntersectionObserver(e=>e.forEach(i=>{if(i.isIntersecting)i.target.classList.add('in')}),{threshold:.1});
+document.querySelectorAll('.rev').forEach(r=>obs.observe(r));
+
+// Back to top
+const btt = document.getElementById('btt');
+addEventListener('scroll',()=>btt.classList.toggle('vis',scrollY>600));
+
+// Lightbox
+function openLb(img){document.getElementById('lbimg').src=img.src;document.getElementById('lbx').classList.add('open');document.body.style.overflow='hidden'}
+function closeLb(){document.getElementById('lbx').classList.remove('open');document.body.style.overflow=''}
+document.getElementById('lbx').addEventListener('click',e=>{if(e.target===e.currentTarget)closeLb()});
+addEventListener('keydown',e=>{if(e.key==='Escape')closeLb()});
+</script>
+</body>
+</html>

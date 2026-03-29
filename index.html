@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Subhasree Sengupta — Graphic Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ── RESET & TOKENS ────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#16100a;
+  --ink2:#4a2c1a;
+  --tan:#c4956a;
+  --tan2:#e8c8a0;
+  --cream:#faf6f0;
+  --cream2:#f3ebe0;
+  --cream3:#e8dccf;
+  --muted:#9c846e;
+  --white:#ffffff;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Jost',sans-serif;
+  --ease:cubic-bezier(.4,0,.2,1);
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);font-weight:300;background:var(--cream);color:var(--ink);overflow-x:hidden}
+img{display:block;width:100%;height:auto}
+a{text-decoration:none;color:inherit}
+
+/* ── CURSOR ────────────────────────────────── */
+.cur,.cur-r{position:fixed;pointer-events:none;z-index:9999;border-radius:50%;transform:translate(-50%,-50%)}
+.cur{width:7px;height:7px;background:var(--tan);transition:width .15s,height .15s}
+.cur-r{width:34px;height:34px;border:1px solid rgba(196,149,106,.45);transition:width .25s,height .25s,border-color .2s}
+body:not(:hover) .cur,.body:not(:hover) .cur-r{opacity:0}
+
+/* ── NAV ───────────────────────────────────── */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:22px 52px;transition:background .35s,padding .3s,border-color .35s;border-bottom:1px solid transparent}
+nav.scrolled{background:rgba(250,246,240,.94);backdrop-filter:blur(14px);padding:14px 52px;border-color:rgba(196,149,106,.18)}
+.nav-logo{font-family:var(--serif);font-size:15px;letter-spacing:.06em;font-weight:600;color:var(--cream)}
+nav.scrolled .nav-logo{color:var(--ink)}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(250,246,240,.6);font-weight:400;transition:color .2s;padding:2px 0}
+nav.scrolled .nav-links a{color:var(--muted)}
+.nav-links a:hover,.nav-links a.active{color:var(--tan)}
+nav.scrolled .nav-links a:hover{color:var(--tan)}
+.nav-cta{font-size:11px;letter-spacing:.12em;text-transform:uppercase;border:1px solid rgba(196,149,106,.4);color:var(--tan);padding:7px 18px;border-radius:2px;transition:background .2s,color .2s}
+.nav-cta:hover{background:var(--tan);color:var(--ink)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger span{display:block;width:24px;height:1.5px;background:var(--cream);transition:all .3s}
+nav.scrolled .hamburger span{background:var(--ink)}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+.mobile-menu{display:none;position:fixed;inset:0;z-index:190;background:var(--ink);flex-direction:column;align-items:center;justify-content:center;gap:32px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:var(--serif);font-size:36px;font-weight:300;color:var(--cream);transition:color .2s}
+.mobile-menu a:hover{color:var(--tan)}
+
+/* ── HERO ──────────────────────────────────── */
+.hero{min-height:100vh;background:var(--ink);display:grid;grid-template-columns:55% 45%;overflow:hidden;position:relative}
+.hero-left{display:flex;flex-direction:column;justify-content:center;padding:120px 52px 80px 72px;position:relative;z-index:2}
+.hero-eyebrow{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--tan);margin-bottom:24px;display:flex;align-items:center;gap:14px;opacity:0;transform:translateY(20px);animation:fadeUp .8s .2s var(--ease) forwards}
+.hero-eyebrow::before{content:'';width:36px;height:1px;background:var(--tan);opacity:.7}
+.hero-h1{font-family:var(--serif);font-size:clamp(56px,7.5vw,96px);font-weight:300;line-height:1.02;color:var(--cream);letter-spacing:-.02em;margin-bottom:28px;opacity:0;transform:translateY(28px);animation:fadeUp .9s .35s var(--ease) forwards}
+.hero-h1 em{font-style:italic;color:var(--tan)}
+.hero-sub{font-size:13px;color:rgba(250,246,240,.5);letter-spacing:.04em;margin-bottom:8px;opacity:0;animation:fadeUp .8s .5s var(--ease) forwards}
+.hero-role{font-family:var(--serif);font-size:20px;font-weight:300;color:rgba(250,246,240,.75);margin-bottom:44px;opacity:0;animation:fadeUp .8s .55s var(--ease) forwards}
+.hero-ctas{display:flex;gap:16px;flex-wrap:wrap;opacity:0;animation:fadeUp .8s .7s var(--ease) forwards}
+.btn-primary{display:inline-block;background:var(--tan);color:var(--ink);font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:13px 28px;font-weight:500;border-radius:2px;transition:background .2s,transform .2s}
+.btn-primary:hover{background:var(--tan2);transform:translateY(-2px)}
+.btn-ghost{display:inline-block;border:1px solid rgba(196,149,106,.5);color:var(--tan);font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:13px 28px;border-radius:2px;transition:background .2s,color .2s,transform .2s}
+.btn-ghost:hover{background:rgba(196,149,106,.1);transform:translateY(-2px)}
+.hero-scroll{position:absolute;bottom:36px;left:72px;display:flex;align-items:center;gap:12px;z-index:3;opacity:0;animation:fadeUp .8s 1.2s var(--ease) forwards}
+.hero-scroll span{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:rgba(196,149,106,.5)}
+.scroll-track{width:48px;height:1px;background:rgba(196,149,106,.2);position:relative;overflow:hidden}
+.scroll-track::after{content:'';position:absolute;left:-100%;top:0;width:100%;height:100%;background:var(--tan);animation:scrollTrack 2.4s 1.5s ease-in-out infinite}
+@keyframes scrollTrack{0%{left:-100%}100%{left:100%}}
+.hero-right{position:relative;overflow:hidden}
+.hero-right img{width:100%;height:100%;object-fit:cover;opacity:.8}
+.hero-right::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,var(--ink) 0%,transparent 35%)}
+.hero-stats{position:absolute;bottom:40px;right:40px;display:flex;flex-direction:column;gap:20px;z-index:3}
+.stat-n{font-family:var(--serif);font-size:36px;font-weight:300;color:var(--cream);line-height:1}
+.stat-l{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:rgba(250,246,240,.4)}
+
+/* ── TICKER ────────────────────────────────── */
+.ticker{background:var(--tan);padding:18px 0;overflow:hidden;white-space:nowrap}
+.ticker-track{display:inline-flex;gap:40px;animation:tick 22s linear infinite}
+.tick-item{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);font-weight:500;display:flex;align-items:center;gap:14px}
+.tick-item::after{content:'✦';font-size:7px;opacity:.5}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+/* ── SECTION SHARED ────────────────────────── */
+section{padding:110px 0}
+.container{max-width:1240px;margin:0 auto;padding:0 64px}
+.sec-label{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--tan);margin-bottom:10px;display:flex;align-items:center;gap:12px}
+.sec-label::before{content:'';width:26px;height:1px;background:var(--tan)}
+.sec-title{font-family:var(--serif);font-size:clamp(38px,4.5vw,58px);font-weight:300;line-height:1.08;letter-spacing:-.01em;color:var(--ink);margin-bottom:0}
+.sec-title em{font-style:italic;color:var(--tan)}
+
+/* ── REVEAL ────────────────────────────────── */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .75s var(--ease),transform .75s var(--ease)}
+.rv.on{opacity:1;transform:none}
+.rv-d1{transition-delay:.1s}.rv-d2{transition-delay:.2s}.rv-d3{transition-delay:.3s}.rv-d4{transition-delay:.4s}
+
+/* ── FEATURED CANDELIA ─────────────────────── */
+.featured{background:var(--cream2)}
+.feat-inner{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.feat-img-wrap{position:relative;border-radius:4px;overflow:hidden;box-shadow:0 32px 80px rgba(22,16,10,.18)}
+.feat-img-wrap img{transition:transform .7s var(--ease)}
+.feat-img-wrap:hover img{transform:scale(1.04)}
+.feat-num{font-family:var(--serif);font-size:96px;font-weight:300;color:rgba(196,149,106,.12);line-height:1;margin-bottom:-20px;letter-spacing:-.02em}
+.feat-tag-row{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0 24px}
+.feat-tag{font-size:10px;letter-spacing:.13em;text-transform:uppercase;border:1px solid rgba(196,149,106,.35);color:var(--muted);padding:5px 12px;border-radius:2px}
+.feat-desc{font-size:14px;line-height:1.8;color:var(--muted);margin-bottom:32px;max-width:420px}
+.feat-cta{display:inline-flex;align-items:center;gap:10px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--tan);border-bottom:1px solid rgba(196,149,106,.3);padding-bottom:4px;transition:gap .2s,border-color .2s}
+.feat-cta:hover{gap:16px;border-color:var(--tan)}
+
+/* ── WORK SECTION ──────────────────────────── */
+.work-section{background:var(--white);padding:110px 0}
+.work-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:52px;gap:24px;flex-wrap:wrap}
+.filter-wrap{display:flex;gap:8px;flex-wrap:wrap}
+.filter-btn{font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:7px 18px;border:1px solid var(--cream3);border-radius:2px;cursor:pointer;background:transparent;color:var(--muted);font-family:var(--sans);transition:all .2s;white-space:nowrap}
+.filter-btn:hover{border-color:var(--tan);color:var(--tan)}
+.filter-btn.active{background:var(--ink);border-color:var(--ink);color:var(--cream)}
+
+/* GRID */
+.work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.work-item{border-radius:4px;overflow:hidden;cursor:pointer;position:relative;transition:opacity .35s,transform .35s}
+.work-item.hidden{display:none}
+.work-img{position:relative;overflow:hidden;aspect-ratio:4/5}
+.work-img.land{aspect-ratio:16/9}
+.work-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .65s var(--ease)}
+.work-item:hover .work-img img{transform:scale(1.06)}
+.work-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(22,16,10,.88) 0%,rgba(22,16,10,.2) 55%,transparent 100%);opacity:0;transition:opacity .35s var(--ease);display:flex;flex-direction:column;justify-content:flex-end;padding:22px}
+.work-item:hover .work-overlay{opacity:1}
+.work-cat-badge{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--tan);border:1px solid rgba(196,149,106,.4);padding:4px 10px;border-radius:1px;align-self:flex-start;margin-bottom:10px}
+.work-name{font-family:var(--serif);font-size:22px;font-weight:300;color:var(--cream);line-height:1.2;letter-spacing:-.01em}
+.work-sub{font-size:11px;color:rgba(250,246,240,.5);margin-top:4px;letter-spacing:.02em}
+
+/* wide items (2 col) */
+.work-item.wide{grid-column:span 2}
+
+/* ── ABOUT ─────────────────────────────────── */
+.about-section{background:var(--ink);padding:110px 0}
+.about-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.about-label{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--tan);margin-bottom:12px;display:flex;align-items:center;gap:12px}
+.about-label::before{content:'';width:26px;height:1px;background:var(--tan)}
+.about-h2{font-family:var(--serif);font-size:clamp(36px,4vw,52px);font-weight:300;color:var(--cream);line-height:1.1;margin-bottom:28px}
+.about-h2 em{font-style:italic;color:var(--tan)}
+.about-bio{font-size:14px;line-height:1.85;color:rgba(250,246,240,.55);margin-bottom:32px}
+.about-detail{font-size:12px;color:rgba(250,246,240,.35);letter-spacing:.03em;line-height:2}
+.skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.skill-group h4{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--tan);margin-bottom:14px}
+.skill-list{list-style:none}
+.skill-list li{font-size:13px;color:rgba(250,246,240,.55);padding:8px 0;border-bottom:1px solid rgba(250,246,240,.06);display:flex;align-items:center;gap:8px}
+.skill-list li::before{content:'—';color:rgba(196,149,106,.4);font-size:10px}
+
+/* ── FOOTER ────────────────────────────────── */
+footer{background:#0f0a06;padding:72px 64px 40px}
+.footer-inner{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:40px;padding-bottom:48px;border-bottom:1px solid rgba(250,246,240,.07);margin-bottom:36px}
+.footer-name{font-family:var(--serif);font-size:46px;font-weight:300;color:var(--cream);line-height:1.05}
+.footer-name em{font-style:italic;color:var(--tan)}
+.footer-mid{text-align:center;display:flex;flex-direction:column;align-items:center;gap:16px}
+.footer-divider{width:1px;height:80px;background:linear-gradient(to bottom,transparent,rgba(196,149,106,.3),transparent)}
+.footer-links{display:flex;flex-direction:column;align-items:flex-end;gap:14px}
+.footer-link{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(250,246,240,.35);transition:color .2s}
+.footer-link:hover{color:var(--tan)}
+.footer-base{max-width:1240px;margin:0 auto;display:flex;justify-content:space-between;font-size:11px;color:rgba(250,246,240,.18);letter-spacing:.04em}
+
+/* ── ANIMATIONS ────────────────────────────── */
+@keyframes fadeUp{to{opacity:1;transform:none}}
+
+/* ── RESPONSIVE ────────────────────────────── */
+@media(max-width:1024px){
+  .work-grid{grid-template-columns:repeat(2,1fr)}
+  .work-item.wide{grid-column:span 2}
+}
+@media(max-width:768px){
+  nav{padding:18px 24px}
+  nav.scrolled{padding:12px 24px}
+  .nav-links,.nav-cta{display:none}
+  .hamburger{display:flex}
+  .hero{grid-template-columns:1fr;min-height:100svh}
+  .hero-right{position:absolute;inset:0;z-index:0}
+  .hero-right::after{background:linear-gradient(to top,rgba(22,16,10,.96) 0%,rgba(22,16,10,.5) 50%,rgba(22,16,10,.3) 100%)}
+  .hero-left{padding:100px 24px 80px;z-index:1;justify-content:flex-end}
+  .hero-scroll{left:24px}
+  .hero-stats{display:none}
+  .container{padding:0 24px}
+  section{padding:72px 0}
+  .feat-inner{grid-template-columns:1fr;gap:40px}
+  .feat-num{font-size:64px}
+  .work-grid{grid-template-columns:repeat(2,1fr);gap:12px}
+  .work-item.wide{grid-column:span 2}
+  .work-header{flex-direction:column;align-items:flex-start;gap:20px}
+  .about-inner{grid-template-columns:1fr;gap:48px}
+  .skills-grid{grid-template-columns:1fr 1fr}
+  footer{padding:56px 24px 32px}
+  .footer-inner{grid-template-columns:1fr;text-align:center;gap:24px}
+  .footer-links{align-items:center}
+  .footer-mid{display:none}
+  .footer-base{flex-direction:column;gap:6px;text-align:center}
+}
+@media(max-width:480px){
+  .work-grid{grid-template-columns:1fr}
+  .work-item.wide{grid-column:span 1}
+  .work-img.land{aspect-ratio:4/3}
+  .hero-h1{font-size:52px}
+  .skills-grid{grid-template-columns:1fr}
+}
+/* ── LIGHTBOX ── */
+.lb-overlay{position:fixed;inset:0;z-index:9000;background:rgba(10,6,2,.96);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s ease;padding:16px}
+.lb-overlay.open{opacity:1;pointer-events:all}
+.lb-img-wrap{position:relative;display:flex;align-items:center;justify-content:center;max-width:90vw;max-height:88vh}
+.lb-overlay img{max-width:90vw;max-height:88vh;width:auto;height:auto;object-fit:contain;border-radius:3px;transform:scale(.94);transition:transform .35s ease;display:block;box-shadow:0 24px 80px rgba(0,0,0,.6)}
+.lb-overlay.open img{transform:scale(1)}
+.lb-close{position:fixed;top:20px;right:22px;width:42px;height:42px;border:1px solid rgba(196,149,106,.45);border-radius:50%;background:rgba(22,16,10,.7);color:#c4956a;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,transform .2s;z-index:9001;line-height:1;font-family:sans-serif}
+.lb-close:hover{background:rgba(196,149,106,.2);transform:rotate(90deg)}
+.lb-caption{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);text-align:center;pointer-events:none;white-space:nowrap;z-index:9001}
+.lb-cap-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:#faf6f0;letter-spacing:-.01em}
+.lb-cap-sub{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#c4956a;margin-top:5px}
+.lb-prev,.lb-next{position:fixed;top:50%;transform:translateY(-50%);background:rgba(22,16,10,.6);border:1px solid rgba(196,149,106,.25);color:#c4956a;width:42px;height:42px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:background .2s;z-index:9001;line-height:1;font-family:sans-serif}
+.lb-prev{left:16px}.lb-next{right:16px}
+.lb-prev:hover,.lb-next:hover{background:rgba(196,149,106,.2)}
+@media(max-width:768px){.lb-prev,.lb-next{display:none}.lb-caption{bottom:16px}}
+</style>
+</head>
+<body>
+
+<!-- Cursor -->
+<div class="cur" id="cur"></div>
+<div class="cur-r" id="curR"></div>
+
+<!-- LIGHTBOX MODAL -->
+<div class="lb-overlay" id="lbOverlay" role="dialog" aria-modal="true">
+  <div class="lb-img-wrap">
+    <img id="lbImg" src="" alt="">
+  </div>
+  <button class="lb-close" id="lbClose" aria-label="Close">✕</button>
+  <button class="lb-prev" id="lbPrev" aria-label="Previous">‹</button>
+  <button class="lb-next" id="lbNext" aria-label="Next">›</button>
+  <div class="lb-caption">
+    <div class="lb-cap-title" id="lbTitle"></div>
+    <div class="lb-cap-sub" id="lbSub"></div>
+  </div>
+</div>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#work" onclick="closeMobile()">Work</a>
+  <a href="candelia.html" onclick="closeMobile()">Brand Identity</a>
+  <a href="#about" onclick="closeMobile()">About</a>
+  <a href="#footer" onclick="closeMobile()">Contact</a>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="index.html" class="nav-logo">Subhasree Sengupta</a>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="candelia.html">Brand Identity</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+  <a href="candelia.html" class="nav-cta">View Case Study</a>
+  <button class="hamburger" id="ham" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ════════════════════════
+     HERO
+════════════════════════ -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Graphic Designer · Bangalore, India · 2025</div>
+    <h1 class="hero-h1">
+      Design<br>that <em>speaks</em><br>volumes.
+    </h1>
+    <p class="hero-sub">Subhasree Sengupta</p>
+    <p class="hero-role">Brand Identity · Print · Digital · Illustration</p>
+    <div class="hero-ctas">
+      <a href="#work" class="btn-primary">View All Work</a>
+      <a href="candelia.html" class="btn-ghost">Featured Case Study ↗</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img src="images/w-vector-art.jpg" alt="Portfolio Hero">
+  </div>
+  <div class="hero-stats">
+    <div><div class="stat-n">17</div><div class="stat-l">Projects</div></div>
+    <div><div class="stat-n">6+</div><div class="stat-l">Categories</div></div>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="scroll-track"></div>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="tick-item">Brand Identity</span><span class="tick-item">Poster Design</span>
+    <span class="tick-item">Editorial Layout</span><span class="tick-item">Adobe Photoshop</span>
+    <span class="tick-item">Adobe Illustrator</span><span class="tick-item">Logo Design</span>
+    <span class="tick-item">Packaging Design</span><span class="tick-item">Digital Illustration</span>
+    <span class="tick-item">Photo Manipulation</span><span class="tick-item">Social Media Design</span>
+    <span class="tick-item">Brand Identity</span><span class="tick-item">Poster Design</span>
+    <span class="tick-item">Editorial Layout</span><span class="tick-item">Adobe Photoshop</span>
+    <span class="tick-item">Adobe Illustrator</span><span class="tick-item">Logo Design</span>
+    <span class="tick-item">Packaging Design</span><span class="tick-item">Digital Illustration</span>
+    <span class="tick-item">Photo Manipulation</span><span class="tick-item">Social Media Design</span>
+  </div>
+</div>
+
+<!-- ════════════════════════
+     FEATURED — CANDELIA
+════════════════════════ -->
+<section class="featured">
+  <div class="container">
+    <div class="feat-inner">
+      <div class="rv">
+        <div class="feat-img-wrap">
+          <img src="images/09-billboard.jpg" alt="Candelia Brand Identity — Billboard">
+        </div>
+      </div>
+      <div class="rv rv-d2">
+        <div class="feat-num">01</div>
+        <div class="sec-label">Featured Project</div>
+        <h2 class="sec-title" style="margin-bottom:16px;">Candelia — <em>Brand Identity</em></h2>
+        <div class="feat-tag-row">
+          <span class="feat-tag">Brand Identity</span>
+          <span class="feat-tag">Logo Design</span>
+          <span class="feat-tag">Packaging</span>
+          <span class="feat-tag">Social Media</span>
+          <span class="feat-tag">Advertising</span>
+          <span class="feat-tag">Merchandise</span>
+        </div>
+        <p class="feat-desc">A complete visual identity system for a premium handcrafted candle brand — crafted with warmth. From logo conception through stationery, brochure, social media, packaging, billboard, and branded merchandise.</p>
+        <p class="feat-desc" style="margin-bottom:40px;font-size:13px;color:rgba(156,132,110,.7)">Tools: Adobe Photoshop · Adobe Illustrator · Behance: 22 appreciations, 1,515 views</p>
+        <a href="candelia.html" class="feat-cta">View Full Case Study &nbsp;→</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════
+     WORK GRID
+════════════════════════ -->
+<section class="work-section" id="work">
+  <div class="container">
+    <div class="work-header">
+      <div>
+        <div class="sec-label rv">Selected Work</div>
+        <h2 class="sec-title rv rv-d1">All <em>Projects</em></h2>
+      </div>
+      <div class="filter-wrap rv rv-d2">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="poster">Posters</button>
+        <button class="filter-btn" data-filter="magazine">Magazine</button>
+        <button class="filter-btn" data-filter="branding">Branding</button>
+        <button class="filter-btn" data-filter="illustration">Illustration</button>
+      </div>
+    </div>
+
+    <div class="work-grid" id="workGrid">
+
+      <div class="work-item rv" data-cat="poster" data-title="Event Poster" data-sub="Kenny Sebastian Comedy Night · Photoshop">
+        <div class="work-img">
+          <img src="images/w-event-poster.jpg" alt="Event Poster" loading="lazy">
+          <div class="work-overlay">
+            <span class="work-cat-badge">Poster Design</span>
+            <h3 class="work-name">Event Poster</h3>
+            <p class="work-sub">Kenny Sebastian Comedy Night</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-item rv rv-d1" data-cat="poster" data-title="Jewellery Poster" data-sub="Anjali Jewellers — New Collection Launch">
+        <div class="work-img">
+          <img src="images/w-jewellery.jpg" alt="Jewellery Poster" loading="lazy">
+          <div class="work-overlay">
+            <span class="work-cat-badge">Poster Design</span>
+            <h3 class="work-name">Jewellery Poster</h3>
+            <p class="work-sub">Anjali Jewellers — New Collection Launch</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-item rv rv-d2" data-cat="poster" data-title="Vintage Poster" data-sub="World Radio Day — 13th February">
+        <div class="work-img">
+          <img src="images/w-vintage-radio.jpg" alt="Vintage Poster" loading="lazy">
+          <div class="work-overlay">
+            <span class="work-cat-badge">Poster Design</span>
+            <h3 class="work-name">Vintage Poster</h3>
+            <p class="work-sub">World Radio Day — 13th February</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-item rv" data-cat="poster" data-title="Sneaker Collection" data-sub="Social Media Concept Design · Photoshop">
+        <div class="work-img">
+          <img src="images/w-sneaker.jpg" alt="Sneaker Poster" loading="lazy">
+          <div class="work-overlay">
+            <span class="work-cat-badge">Social Media Poster</span>
+            <h3 class="work-name">Sneaker Collection</h3>
+            <p class="work-sub">Social Media Concept Design</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-item rv rv-d1" data-cat="poster" data-title="Healthy Food Poster" data-sub="Food Delivery — Photoshop">
+        <div class="work-img">
+          <img src="images/w-food-healthy.jpg" alt="Healthy Food Poster" loading="lazy">
+          <div class="work-overlay">
+            <span class="work-cat-badge">Poster Design</span>
+            <h3 class="work-name">Healthy Food Poster</h3>
+            <p class="work-sub">Food Delivery — Photoshop</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-item rv rv-d2" data-cat="poster" data-title="Food Poster" data-sub="Burger — Photoshop Concept">
+        <div class="work-img">
+          <img src="images/w-food-burger.jpg" alt="Food Poster Photoshop" loading="lazy">
+          <div class="work-overlay">
+            <span class="work-cat-badge">Poster Design</span>
+            <h3 class="work-name">Food Poster</h3>
+            <p class="work-sub">Burger — Photoshop Concept</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-item rv" data-cat="poster" data-title="Independence Day" data-sub="Patriotic Poster — Digital Illustration">
+        <div class="work-img">
+          <img src="images/w-independence.png" alt="Independence Day Poster" loading="lazy">
+          <div class="work-overlay">
+            <span class="work-cat-badge">Poster Design</span>
+            <h3 class="work-name">Independence Day</h3>
+            <p class="work-sub">Patriotic Poster — Digital</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- MAGAZINE -->
+      <div class="work-item rv rv-d1" data-cat="magazine" data-title="Travel Magazine" data-sub="Cover Design — November 2024">
+        <div class="work-img">
+          <img src="images/w-travel-mag.jpg" alt="Travel Magazine" loading="lazy">
+          <div class="work-overlay">
+            <span class="work-cat-badge">Editorial Design</span>
+            <h3 class="work-name">Travel Magazine</h3>
+            <p class="work-sub">Cover Design — November 2024</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-item rv rv-d2" data-cat="magazine" data-title="Fashion Magazine Cover" data-sub="Cover Layout Design Exercise">
+        <div class="work-img">
+          <img src="images/w-fashion-mag.jpg" alt="Fashion Magazine" loading="lazy">
+          <div class="work-overlay">
+            <span class="work-cat-badge">Editorial Design</span>
+            <h3 class="work-name">Fashion Magazine Cover</h3>
+            <p class="work-sub">Cover Layout Design Exercise</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-item rv" data-cat="magazine" data-title="Kids Magazine Cover" data-sub="National Geographic Kids Style">
+        <div class="work-img">
+          <img src="images/w-kids-mag.jpg" alt="Kids Magazine" loading="lazy">
+          <div class="work-overlay">
+            <span class="work-cat-badge">Editorial Design</span>
+            <h3 class="work-name">Kids Magazine Cover</h3>
+            <p class="work-sub">National Geographic Kids Style</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- BRANDING -->
+      <div class="work-item rv rv-d1" data-cat="branding" data-title="Farm Bite Chicken" data-sub="Logo & Brand Identity Design">
+        <div class="work-img" style="aspect-ratio:4/3">
+          <img src="images/w-logo-chicken.jpg" alt="Farm Bite Chicken Logo" loading="lazy">
+          <div class="work-overlay">
+            <span class="work-cat-badge">Logo Design</span>
+            <h3 class="work-name">Farm Bite Chicken</h3>
+            <p class="work-sub">Logo &amp; Brand Identity</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-item rv rv-d2" data-cat="branding" data-title="Garden Blossoms" data-sub="Indoor Plant Co. — Logo & Brand">
+        <div class="work-img" style="aspect-ratio:4/3">
+          <img src="images/w-logo-plant.jpg" alt="Garden Blossoms Logo" loading="lazy">
+          <div class="work-overlay">
+            <span class="work-cat-badge">Logo Design</span>
+            <h3 class="work-name">Garden Blossoms</h3>
+            <p class="work-sub">Indoor Plant Co. — Logo &amp; Brand</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ILLUSTRATION -->
+      <div class="work-item rv" data-cat="illustration" data-title="Vector Portrait" data-sub="Adobe Illustrator — Digital Art">
+        <div class="work-img">
+          <img src="images/w-vector-art.jpg" alt="Vector Art Portrait" loading="lazy">
+          <div class="work-overlay">
+            <span class="work-cat-badge">Vector Art</span>
+            <h3 class="work-name">Vector Portrait</h3>
+            <p class="work-sub">Adobe Illustrator — Digital Art</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-item wide rv rv-d1" data-cat="illustration" data-title="Matte Painting" data-sub="Multi-image Compositing — Photoshop">
+        <div class="work-img land">
+          <img src="images/w-matte-painting.jpg" alt="Matte Painting" loading="lazy">
+          <div class="work-overlay">
+            <span class="work-cat-badge">Photo Manipulation</span>
+            <h3 class="work-name">Matte Painting</h3>
+            <p class="work-sub">Before / After — Multi-image Compositing in Photoshop</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-item rv" data-cat="illustration" data-title="Photo Restoration" data-sub="Damage Repair & Retouching — Photoshop">
+        <div class="work-img" style="aspect-ratio:auto;min-height:200px">
+          <img src="images/w-photo-restore.webp" alt="Photo Restoration" loading="lazy" style="height:auto;object-fit:contain;background:#f5ede0">
+          <div class="work-overlay">
+            <span class="work-cat-badge">Photo Restoration</span>
+            <h3 class="work-name">Photo Restoration</h3>
+            <p class="work-sub">Damage Repair &amp; Retouching</p>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /work-grid -->
+  </div>
+</section>
+
+<!-- ════════════════════════
+     ABOUT
+════════════════════════ -->
+<section class="about-section" id="about">
+  <div class="container">
+    <div class="about-inner">
+      <div>
+        <div class="about-label rv">About Me</div>
+        <h2 class="about-h2 rv rv-d1">
+          Designer.<br><em>Creator.</em><br>Storyteller.
+        </h2>
+        <p class="about-bio rv rv-d2">
+          I'm Subhasree Sengupta, a graphic designer based in Bangalore, India. I specialise in brand identity, print design, and digital visual communication — creating work that communicates feeling, not just information.
+        </p>
+        <p class="about-bio rv rv-d3" style="margin-bottom:0">
+          My process starts with understanding the story a brand needs to tell, then finding the visual language to tell it — from the first logo sketch to the final billboard mockup.
+        </p>
+        <p class="about-detail rv rv-d4" style="margin-top:28px">
+          Location: Bangalore, India &nbsp;·&nbsp; Available for freelance &amp; full-time roles<br>
+          Behance: behance.net/subhasrsengupt2
+        </p>
+      </div>
+      <div class="rv rv-d2">
+        <div class="skills-grid">
+          <div class="skill-group">
+            <h4>Design Skills</h4>
+            <ul class="skill-list">
+              <li>Brand Identity</li>
+              <li>Logo Design</li>
+              <li>Poster Design</li>
+              <li>Editorial Layout</li>
+              <li>Packaging Design</li>
+              <li>Social Media</li>
+              <li>Merchandise Design</li>
+            </ul>
+          </div>
+          <div class="skill-group">
+            <h4>Tools</h4>
+            <ul class="skill-list">
+              <li>Adobe Photoshop</li>
+              <li>Adobe Illustrator</li>
+              <li>Photo Retouching</li>
+              <li>Matte Painting</li>
+              <li>Vector Illustration</li>
+              <li>Print Production</li>
+              <li>Mockup Design</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════
+     FOOTER
+════════════════════════ -->
+<footer id="footer">
+  <div class="footer-inner">
+    <div>
+      <p class="footer-name">Subhasree<br><em>Sengupta</em></p>
+      <p style="font-size:12px;color:rgba(250,246,240,.3);margin-top:12px;line-height:1.8">Graphic Designer<br>Bangalore, India · 2025</p>
+    </div>
+    <div class="footer-mid">
+      <div class="footer-divider"></div>
+    </div>
+    <div class="footer-links">
+      <a href="candelia.html" class="footer-link">Candelia Case Study →</a>
+      <a href="https://www.behance.net/subhasrsengupt2" class="footer-link" target="_blank">Behance Portfolio →</a>
+      <a href="/cdn-cgi/l/email-protection#f390929d97969f9a9290929d979f9680b3949e929a9fdd909c9e" class="footer-link">Get in Touch →</a>
+    </div>
+  </div>
+  <div class="footer-base">
+    <span>© 2025 Subhasree Sengupta. All rights reserved.</span>
+    <span>Made with Adobe Photoshop &amp; Illustrator</span>
+  </div>
+</footer>
+
+<script>
+/* ── CURSOR ── */
+const cur=document.getElementById('cur'),curR=document.getElementById('curR');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+(function loop(){cur.style.cssText=`left:${mx}px;top:${my}px`;rx+=(mx-rx)*.11;ry+=(my-ry)*.11;curR.style.cssText=`left:${rx}px;top:${ry}px`;requestAnimationFrame(loop);})();
+document.querySelectorAll('a,button,.work-item,.feat-img-wrap').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{curR.style.width='56px';curR.style.height='56px';curR.style.borderColor='rgba(196,149,106,.8)';});
+  el.addEventListener('mouseleave',()=>{curR.style.width='34px';curR.style.height='34px';curR.style.borderColor='rgba(196,149,106,.45)';});
+});
+
+/* ── NAV SCROLL ── */
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>50));
+
+/* ── HAMBURGER ── */
+const ham=document.getElementById('ham'),menu=document.getElementById('mobileMenu');
+ham.addEventListener('click',()=>{ham.classList.toggle('open');menu.classList.toggle('open');});
+function closeMobile(){ham.classList.remove('open');menu.classList.remove('open');}
+
+/* ── REVEAL ON SCROLL ── */
+const rvEls=document.querySelectorAll('.rv');
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on');});},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+rvEls.forEach(el=>obs.observe(el));
+
+/* ── FILTER ── */
+const btns=document.querySelectorAll('.filter-btn');
+btns.forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    btns.forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const f=btn.dataset.filter;
+    document.querySelectorAll('.work-item').forEach(item=>{
+      const show=f==='all'||item.dataset.cat===f;
+      item.classList.toggle('hidden',!show);
+    });
+  });
+});
+
+/* ── LIGHTBOX ── */
+const overlay=document.getElementById('lbOverlay');
+const lbImg=document.getElementById('lbImg');
+const lbTitle=document.getElementById('lbTitle');
+const lbSub=document.getElementById('lbSub');
+let lbItems=[],lbIdx=0;
+
+function buildLbList(){
+  lbItems=[];
+  document.querySelectorAll('.work-item:not(.hidden)').forEach(item=>{
+    const img=item.querySelector('img');
+    if(img) lbItems.push({src:img.src,title:item.dataset.title||'',sub:item.dataset.sub||''});
+  });
+}
+
+function openLb(item){
+  buildLbList();
+  const img=item.querySelector('img');
+  if(!img)return;
+  lbIdx=lbItems.findIndex(x=>x.src===img.src);
+  if(lbIdx<0)lbIdx=0;
+  showLb(lbIdx);
+}
+
+function showLb(i){
+  const d=lbItems[i];
+  if(!d)return;
+  lbImg.src=d.src;
+  lbImg.alt=d.title;
+  lbTitle.textContent=d.title;
+  lbSub.textContent=d.sub;
+  overlay.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function closeLb(){
+  overlay.classList.remove('open');
+  document.body.style.overflow='';
+  setTimeout(()=>{lbImg.src='';},300);
+}
+
+/* Click work items to open lightbox */
+document.querySelectorAll('.work-item').forEach(item=>{
+  item.addEventListener('click',()=>openLb(item));
+});
+
+/* Also allow clicking candelia featured image */
+document.querySelectorAll('.feat-img-wrap img').forEach(img=>{
+  img.parentElement.style.cursor='pointer';
+  img.parentElement.addEventListener('click',()=>{
+    lbItems=[{src:img.src,title:'Candelia — Brand Identity',sub:'Featured Case Study'}];
+    lbIdx=0;showLb(0);
+  });
+});
+
+document.getElementById('lbClose').addEventListener('click',closeLb);
+document.getElementById('lbPrev').addEventListener('click',()=>{lbIdx=(lbIdx-1+lbItems.length)%lbItems.length;showLb(lbIdx);});
+document.getElementById('lbNext').addEventListener('click',()=>{lbIdx=(lbIdx+1)%lbItems.length;showLb(lbIdx);});
+
+/* Close on overlay click */
+overlay.addEventListener('click',e=>{if(e.target===overlay||e.target===document.querySelector('.lb-img-wrap'))closeLb();});
+
+/* Keyboard navigation */
+document.addEventListener('keydown',e=>{
+  if(!overlay.classList.contains('open'))return;
+  if(e.key==='Escape')closeLb();
+  if(e.key==='ArrowRight'){lbIdx=(lbIdx+1)%lbItems.length;showLb(lbIdx);}
+  if(e.key==='ArrowLeft'){lbIdx=(lbIdx-1+lbItems.length)%lbItems.length;showLb(lbIdx);}
+});
+
+/* Touch swipe for mobile */
+let touchStartX=0;
+overlay.addEventListener('touchstart',e=>{touchStartX=e.changedTouches[0].screenX;},{passive:true});
+overlay.addEventListener('touchend',e=>{
+  const dx=e.changedTouches[0].screenX-touchStartX;
+  if(Math.abs(dx)>50){
+    if(dx<0){lbIdx=(lbIdx+1)%lbItems.length;}else{lbIdx=(lbIdx-1+lbItems.length)%lbItems.length;}
+    showLb(lbIdx);
+  }
+});
+</script>
+</body>
+</html>
