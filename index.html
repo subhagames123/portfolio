@@ -7,18 +7,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-/* ── RESET & TOKENS ────────────────────────── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --ink:#16100a;
-  --ink2:#4a2c1a;
-  --tan:#c4956a;
-  --tan2:#e8c8a0;
-  --cream:#faf6f0;
-  --cream2:#f3ebe0;
-  --cream3:#e8dccf;
-  --muted:#9c846e;
-  --white:#ffffff;
+  --ink:#16100a;--tan:#c4956a;--tan2:#e8c8a0;
+  --cream:#faf6f0;--cream2:#f3ebe0;--cream3:#e8dccf;
+  --muted:#9c846e;--white:#fff;
   --serif:'Cormorant Garamond',Georgia,serif;
   --sans:'Jost',sans-serif;
   --ease:cubic-bezier(.4,0,.2,1);
@@ -28,561 +21,614 @@ body{font-family:var(--sans);font-weight:300;background:var(--cream);color:var(-
 img{display:block;width:100%;height:auto}
 a{text-decoration:none;color:inherit}
 
-/* ── CURSOR ────────────────────────────────── */
+/* CURSOR */
 .cur,.cur-r{position:fixed;pointer-events:none;z-index:9999;border-radius:50%;transform:translate(-50%,-50%)}
-.cur{width:7px;height:7px;background:var(--tan);transition:width .15s,height .15s}
+.cur{width:7px;height:7px;background:var(--tan)}
 .cur-r{width:34px;height:34px;border:1px solid rgba(196,149,106,.45);transition:width .25s,height .25s,border-color .2s}
-body:not(:hover) .cur,.body:not(:hover) .cur-r{opacity:0}
 
-/* ── NAV ───────────────────────────────────── */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:22px 52px;transition:background .35s,padding .3s,border-color .35s;border-bottom:1px solid transparent}
-nav.scrolled{background:rgba(250,246,240,.94);backdrop-filter:blur(14px);padding:14px 52px;border-color:rgba(196,149,106,.18)}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:22px 52px;transition:background .35s,padding .3s;border-bottom:1px solid transparent}
+nav.scrolled{background:rgba(250,246,240,.95);backdrop-filter:blur(14px);padding:14px 52px;border-color:rgba(196,149,106,.18)}
 .nav-logo{font-family:var(--serif);font-size:15px;letter-spacing:.06em;font-weight:600;color:var(--cream)}
 nav.scrolled .nav-logo{color:var(--ink)}
 .nav-links{display:flex;gap:28px;list-style:none}
-.nav-links a{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(250,246,240,.6);font-weight:400;transition:color .2s;padding:2px 0}
+.nav-links a{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:rgba(250,246,240,.6);font-weight:400;transition:color .2s}
 nav.scrolled .nav-links a{color:var(--muted)}
-.nav-links a:hover,.nav-links a.active{color:var(--tan)}
-nav.scrolled .nav-links a:hover{color:var(--tan)}
+.nav-links a:hover,nav.scrolled .nav-links a:hover{color:var(--tan)}
 .nav-cta{font-size:11px;letter-spacing:.12em;text-transform:uppercase;border:1px solid rgba(196,149,106,.4);color:var(--tan);padding:7px 18px;border-radius:2px;transition:background .2s,color .2s}
 .nav-cta:hover{background:var(--tan);color:var(--ink)}
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none}
 .hamburger span{display:block;width:24px;height:1.5px;background:var(--cream);transition:all .3s}
 nav.scrolled .hamburger span{background:var(--ink)}
 .hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
 .hamburger.open span:nth-child(2){opacity:0}
 .hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
-.mobile-menu{display:none;position:fixed;inset:0;z-index:190;background:var(--ink);flex-direction:column;align-items:center;justify-content:center;gap:32px}
-.mobile-menu.open{display:flex}
-.mobile-menu a{font-family:var(--serif);font-size:36px;font-weight:300;color:var(--cream);transition:color .2s}
-.mobile-menu a:hover{color:var(--tan)}
+.mob-menu{display:none;position:fixed;inset:0;z-index:190;background:var(--ink);flex-direction:column;align-items:center;justify-content:center;gap:32px}
+.mob-menu.open{display:flex}
+.mob-menu a{font-family:var(--serif);font-size:34px;font-weight:300;color:var(--cream);transition:color .2s}
+.mob-menu a:hover{color:var(--tan)}
 
-/* ── HERO ──────────────────────────────────── */
-.hero{min-height:100vh;background:var(--ink);display:grid;grid-template-columns:55% 45%;overflow:hidden;position:relative}
-.hero-left{display:flex;flex-direction:column;justify-content:center;padding:120px 52px 80px 72px;position:relative;z-index:2}
-.hero-eyebrow{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--tan);margin-bottom:24px;display:flex;align-items:center;gap:14px;opacity:0;transform:translateY(20px);animation:fadeUp .8s .2s var(--ease) forwards}
-.hero-eyebrow::before{content:'';width:36px;height:1px;background:var(--tan);opacity:.7}
-.hero-h1{font-family:var(--serif);font-size:clamp(56px,7.5vw,96px);font-weight:300;line-height:1.02;color:var(--cream);letter-spacing:-.02em;margin-bottom:28px;opacity:0;transform:translateY(28px);animation:fadeUp .9s .35s var(--ease) forwards}
-.hero-h1 em{font-style:italic;color:var(--tan)}
-.hero-sub{font-size:13px;color:rgba(250,246,240,.5);letter-spacing:.04em;margin-bottom:8px;opacity:0;animation:fadeUp .8s .5s var(--ease) forwards}
-.hero-role{font-family:var(--serif);font-size:20px;font-weight:300;color:rgba(250,246,240,.75);margin-bottom:44px;opacity:0;animation:fadeUp .8s .55s var(--ease) forwards}
-.hero-ctas{display:flex;gap:16px;flex-wrap:wrap;opacity:0;animation:fadeUp .8s .7s var(--ease) forwards}
-.btn-primary{display:inline-block;background:var(--tan);color:var(--ink);font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:13px 28px;font-weight:500;border-radius:2px;transition:background .2s,transform .2s}
-.btn-primary:hover{background:var(--tan2);transform:translateY(-2px)}
-.btn-ghost{display:inline-block;border:1px solid rgba(196,149,106,.5);color:var(--tan);font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:13px 28px;border-radius:2px;transition:background .2s,color .2s,transform .2s}
-.btn-ghost:hover{background:rgba(196,149,106,.1);transform:translateY(-2px)}
-.hero-scroll{position:absolute;bottom:36px;left:72px;display:flex;align-items:center;gap:12px;z-index:3;opacity:0;animation:fadeUp .8s 1.2s var(--ease) forwards}
-.hero-scroll span{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:rgba(196,149,106,.5)}
-.scroll-track{width:48px;height:1px;background:rgba(196,149,106,.2);position:relative;overflow:hidden}
-.scroll-track::after{content:'';position:absolute;left:-100%;top:0;width:100%;height:100%;background:var(--tan);animation:scrollTrack 2.4s 1.5s ease-in-out infinite}
-@keyframes scrollTrack{0%{left:-100%}100%{left:100%}}
-.hero-right{position:relative;overflow:hidden}
-.hero-right img{width:100%;height:100%;object-fit:cover;opacity:.8}
-.hero-right::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,var(--ink) 0%,transparent 35%)}
-.hero-stats{position:absolute;bottom:40px;right:40px;display:flex;flex-direction:column;gap:20px;z-index:3}
-.stat-n{font-family:var(--serif);font-size:36px;font-weight:300;color:var(--cream);line-height:1}
-.stat-l{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:rgba(250,246,240,.4)}
+/* BRAND IDENTITY HERO */
+.bi-hero{min-height:100vh;background:var(--ink);position:relative;display:flex;overflow:hidden}
+.bi-bg{position:absolute;inset:0;z-index:0}
+.bi-bg img{width:100%;height:100%;object-fit:cover;opacity:.32;filter:saturate(.55)}
+.bi-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(130deg,rgba(22,16,10,.97) 0%,rgba(22,16,10,.72) 55%,rgba(22,16,10,.38) 100%)}
+.bi-preview{position:absolute;right:0;top:0;bottom:0;width:36%;z-index:1;display:grid;grid-template-rows:1fr 1fr 1fr;gap:3px;overflow:hidden;opacity:.5}
+.bi-preview img{width:100%;height:100%;object-fit:cover}
+.bi-preview::before{content:'';position:absolute;left:0;top:0;bottom:0;width:65%;background:linear-gradient(to right,var(--ink),transparent);z-index:2}
+.bi-content{position:relative;z-index:3;display:flex;flex-direction:column;justify-content:flex-end;padding:0 72px 84px;width:100%}
+.bi-eyebrow{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--tan);display:flex;align-items:center;gap:14px;margin-bottom:22px;opacity:0;animation:fup .7s .2s var(--ease) forwards}
+.bi-eyebrow::before{content:'';width:36px;height:1px;background:var(--tan);opacity:.7}
+.bi-h1{font-family:var(--serif);font-size:clamp(54px,8.5vw,112px);font-weight:300;line-height:.98;letter-spacing:-.03em;color:var(--cream);margin-bottom:22px;opacity:0;animation:fup .9s .35s var(--ease) forwards}
+.bi-h1 em{font-style:italic;color:var(--tan)}
+.bi-desc{font-size:15px;line-height:1.75;color:rgba(250,246,240,.48);max-width:550px;margin-bottom:36px;opacity:0;animation:fup .8s .5s var(--ease) forwards}
+.bi-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:48px;opacity:0;animation:fup .8s .6s var(--ease) forwards}
+.bi-tag{font-size:9px;letter-spacing:.14em;text-transform:uppercase;border:1px solid rgba(196,149,106,.26);color:rgba(196,149,106,.65);padding:5px 12px;border-radius:1px}
+.bi-ctas{display:flex;gap:16px;flex-wrap:wrap;opacity:0;animation:fup .8s .74s var(--ease) forwards}
+.btn-p{display:inline-block;background:var(--tan);color:var(--ink);font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:13px 30px;font-weight:500;border-radius:2px;transition:background .2s,transform .2s}
+.btn-p:hover{background:var(--tan2);transform:translateY(-2px)}
+.btn-g{display:inline-block;border:1px solid rgba(196,149,106,.45);color:var(--tan);font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:13px 30px;border-radius:2px;transition:background .2s,transform .2s}
+.btn-g:hover{background:rgba(196,149,106,.1);transform:translateY(-2px)}
+.bi-meta{position:absolute;bottom:84px;right:68px;z-index:3;display:flex;flex-direction:column;gap:24px;align-items:flex-end;opacity:0;animation:fup .8s .9s var(--ease) forwards}
+.bi-stat-n{font-family:var(--serif);font-size:44px;font-weight:300;color:var(--cream);line-height:1;text-align:right}
+.bi-stat-l{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:rgba(250,246,240,.3);text-align:right}
+.scroll-hint{position:absolute;bottom:38px;left:72px;z-index:3;display:flex;align-items:center;gap:12px;opacity:0;animation:fup .8s 1.1s var(--ease) forwards}
+.scroll-hint span{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:rgba(196,149,106,.4)}
+.strack{width:48px;height:1px;background:rgba(196,149,106,.18);position:relative;overflow:hidden}
+.strack::after{content:'';position:absolute;left:-100%;top:0;width:100%;height:100%;background:var(--tan);animation:str 2.4s 1.6s ease-in-out infinite}
+@keyframes str{0%{left:-100%}100%{left:100%}}
 
-/* ── TICKER ────────────────────────────────── */
+/* TICKER */
 .ticker{background:var(--tan);padding:18px 0;overflow:hidden;white-space:nowrap}
-.ticker-track{display:inline-flex;gap:40px;animation:tick 22s linear infinite}
-.tick-item{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);font-weight:500;display:flex;align-items:center;gap:14px}
-.tick-item::after{content:'✦';font-size:7px;opacity:.5}
+.t-track{display:inline-flex;gap:40px;animation:tick 24s linear infinite}
+.t-item{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);font-weight:500;display:flex;align-items:center;gap:14px}
+.t-item::after{content:'✦';font-size:7px;opacity:.5}
 @keyframes tick{to{transform:translateX(-50%)}}
 
-/* ── SECTION SHARED ────────────────────────── */
+/* SHARED */
 section{padding:110px 0}
-.container{max-width:1240px;margin:0 auto;padding:0 64px}
-.sec-label{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--tan);margin-bottom:10px;display:flex;align-items:center;gap:12px}
-.sec-label::before{content:'';width:26px;height:1px;background:var(--tan)}
-.sec-title{font-family:var(--serif);font-size:clamp(38px,4.5vw,58px);font-weight:300;line-height:1.08;letter-spacing:-.01em;color:var(--ink);margin-bottom:0}
-.sec-title em{font-style:italic;color:var(--tan)}
-
-/* ── REVEAL ────────────────────────────────── */
+.wrap{max-width:1240px;margin:0 auto;padding:0 64px}
+.slabel{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--tan);margin-bottom:10px;display:flex;align-items:center;gap:12px}
+.slabel::before{content:'';width:26px;height:1px;background:var(--tan)}
+.stitle{font-family:var(--serif);font-size:clamp(38px,4.5vw,58px);font-weight:300;line-height:1.08;letter-spacing:-.01em;color:var(--ink)}
+.stitle em{font-style:italic;color:var(--tan)}
 .rv{opacity:0;transform:translateY(26px);transition:opacity .75s var(--ease),transform .75s var(--ease)}
 .rv.on{opacity:1;transform:none}
-.rv-d1{transition-delay:.1s}.rv-d2{transition-delay:.2s}.rv-d3{transition-delay:.3s}.rv-d4{transition-delay:.4s}
+.rv1{transition-delay:.1s}.rv2{transition-delay:.2s}.rv3{transition-delay:.3s}.rv4{transition-delay:.4s}
 
-/* ── FEATURED CANDELIA ─────────────────────── */
-.featured{background:var(--cream2)}
-.feat-inner{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
-.feat-img-wrap{position:relative;border-radius:4px;overflow:hidden;box-shadow:0 32px 80px rgba(22,16,10,.18)}
-.feat-img-wrap img{transition:transform .7s var(--ease)}
-.feat-img-wrap:hover img{transform:scale(1.04)}
-.feat-num{font-family:var(--serif);font-size:96px;font-weight:300;color:rgba(196,149,106,.12);line-height:1;margin-bottom:-20px;letter-spacing:-.02em}
-.feat-tag-row{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0 24px}
-.feat-tag{font-size:10px;letter-spacing:.13em;text-transform:uppercase;border:1px solid rgba(196,149,106,.35);color:var(--muted);padding:5px 12px;border-radius:2px}
-.feat-desc{font-size:14px;line-height:1.8;color:var(--muted);margin-bottom:32px;max-width:420px}
-.feat-cta{display:inline-flex;align-items:center;gap:10px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--tan);border-bottom:1px solid rgba(196,149,106,.3);padding-bottom:4px;transition:gap .2s,border-color .2s}
-.feat-cta:hover{gap:16px;border-color:var(--tan)}
+/* BI GALLERY */
+.bi-gal{background:var(--cream2)}
+.bi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:52px}
+.bi-thumb{border-radius:4px;overflow:hidden;cursor:pointer}
+.bi-thumb img{width:100%;height:200px;object-fit:cover;transition:transform .6s var(--ease)}
+.bi-thumb:hover img{transform:scale(1.05)}
+.bi-tlabel{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:9px}
+.bi-cta-row{margin-top:48px;display:flex;align-items:center;gap:24px}
+.bi-rule{flex:1;height:1px;background:var(--cream3)}
 
-/* ── WORK SECTION ──────────────────────────── */
-.work-section{background:var(--white);padding:110px 0}
-.work-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:52px;gap:24px;flex-wrap:wrap}
-.filter-wrap{display:flex;gap:8px;flex-wrap:wrap}
-.filter-btn{font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:7px 18px;border:1px solid var(--cream3);border-radius:2px;cursor:pointer;background:transparent;color:var(--muted);font-family:var(--sans);transition:all .2s;white-space:nowrap}
-.filter-btn:hover{border-color:var(--tan);color:var(--tan)}
-.filter-btn.active{background:var(--ink);border-color:var(--ink);color:var(--cream)}
+/* MOTION */
+.ms{background:#0d0905}
+.ms .slabel,.ms .slabel::before{color:var(--tan);background:var(--tan)}
+.ms .stitle{color:var(--cream)}
+.ms .stitle em{color:var(--tan)}
+.ms-note{font-size:13px;color:rgba(250,246,240,.32);max-width:280px;text-align:right;line-height:1.7}
+/* One card per row, landscape */
+.mgrid{display:grid;grid-template-columns:1fr;gap:32px;margin-top:52px}
+.mc{position:relative;border-radius:8px;overflow:hidden;background:#1a110a;display:grid;grid-template-columns:1fr 1fr;min-height:320px}
+/* Video side */
+.mvw{position:relative;overflow:hidden;cursor:pointer}
+.mvw video{width:100%;height:100%;object-fit:contain;display:block;background:#000;transition:none}
+/* Expand-on-click overlay (full cover, subtle dark tint) */
+.mplay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transition:opacity .3s;background:rgba(0,0,0,.25)}
+.mc.playing .mplay{background:transparent}
+.mplay-btn{width:72px;height:72px;border-radius:50%;border:2px solid rgba(196,149,106,.7);background:rgba(22,16,10,.55);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px);transition:transform .25s,border-color .25s,background .25s}
+.mplay-btn svg{width:26px;height:26px;fill:var(--tan);margin-left:5px}
+.mvw:hover .mplay-btn{transform:scale(1.1);border-color:var(--tan);background:rgba(22,16,10,.75)}
+.mc.playing .mplay-btn{opacity:0}
+/* "click to expand" hint */
+.mexpand-hint{position:absolute;bottom:12px;right:14px;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:rgba(196,149,106,.5);display:flex;align-items:center;gap:6px;pointer-events:none;z-index:2}
+.mexpand-hint svg{width:13px;height:13px;fill:rgba(196,149,106,.5)}
+.mbadge{position:absolute;top:14px;left:14px;z-index:3;font-size:9px;letter-spacing:.15em;text-transform:uppercase;background:rgba(196,149,106,.14);border:1px solid rgba(196,149,106,.3);color:var(--tan);padding:4px 10px;border-radius:1px;backdrop-filter:blur(4px)}
+/* Info side */
+.minfo{padding:36px 40px;display:flex;flex-direction:column;justify-content:center;border-left:1px solid rgba(196,149,106,.08)}
+.mnum{font-family:var(--serif);font-size:11px;color:rgba(196,149,106,.35);letter-spacing:.1em;margin-bottom:8px}
+.mtitle{font-family:var(--serif);font-size:32px;font-weight:300;color:var(--cream);letter-spacing:-.02em;line-height:1.1;margin-bottom:6px}
+.mbrand{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--tan);margin-bottom:20px}
+.mdesc{font-size:13px;line-height:1.8;color:rgba(250,246,240,.42);margin-bottom:24px}
+.mwatch-btn{display:inline-flex;align-items:center;gap:8px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--tan);border:1px solid rgba(196,149,106,.3);padding:8px 18px;border-radius:2px;cursor:pointer;background:transparent;font-family:var(--sans);transition:background .2s,border-color .2s;width:fit-content}
+.mwatch-btn:hover{background:rgba(196,149,106,.1);border-color:var(--tan)}
+.mwatch-btn svg{width:14px;height:14px;fill:var(--tan)}
 
-/* GRID */
-.work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.work-item{border-radius:4px;overflow:hidden;cursor:pointer;position:relative;transition:opacity .35s,transform .35s}
-.work-item.hidden{display:none}
-.work-img{position:relative;overflow:hidden;aspect-ratio:4/5}
-.work-img.land{aspect-ratio:16/9}
-.work-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .65s var(--ease)}
-.work-item:hover .work-img img{transform:scale(1.06)}
-.work-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(22,16,10,.88) 0%,rgba(22,16,10,.2) 55%,transparent 100%);opacity:0;transition:opacity .35s var(--ease);display:flex;flex-direction:column;justify-content:flex-end;padding:22px}
-.work-item:hover .work-overlay{opacity:1}
-.work-cat-badge{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--tan);border:1px solid rgba(196,149,106,.4);padding:4px 10px;border-radius:1px;align-self:flex-start;margin-bottom:10px}
-.work-name{font-family:var(--serif);font-size:22px;font-weight:300;color:var(--cream);line-height:1.2;letter-spacing:-.01em}
-.work-sub{font-size:11px;color:rgba(250,246,240,.5);margin-top:4px;letter-spacing:.02em}
+/* VIDEO LIGHTBOX */
+.vlb{position:fixed;inset:0;z-index:9500;background:rgba(4,2,1,.97);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s ease;flex-direction:column;gap:20px;padding:20px}
+.vlb.open{opacity:1;pointer-events:all}
+.vlb-inner{position:relative;width:100%;max-width:960px;max-height:80vh;display:flex;align-items:center;justify-content:center}
+.vlb video{width:100%;max-height:80vh;object-fit:contain;border-radius:4px;display:block;transform:scale(.96);transition:transform .35s ease}
+.vlb.open video{transform:scale(1)}
+.vlb-x{position:fixed;top:20px;right:24px;width:42px;height:42px;border:1px solid rgba(196,149,106,.4);border-radius:50%;background:rgba(22,16,10,.75);color:#c4956a;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,transform .2s;z-index:9501;line-height:1;font-family:sans-serif;border-style:solid}
+.vlb-x:hover{background:rgba(196,149,106,.2);transform:rotate(90deg)}
+.vlb-cap{text-align:center;pointer-events:none}
+.vlb-title{font-family:var(--serif);font-size:22px;font-weight:300;color:#faf6f0;letter-spacing:-.01em}
+.vlb-sub{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:#c4956a;margin-top:6px}
+/* controls row */
+.vlb-controls{display:flex;align-items:center;gap:16px;margin-top:4px}
+.vlb-ctrl{width:38px;height:38px;border-radius:50%;border:1px solid rgba(196,149,106,.3);background:transparent;color:#c4956a;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:sans-serif;transition:background .2s;line-height:1}
+.vlb-ctrl:hover{background:rgba(196,149,106,.15)}
+.vlb-unmute{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(196,149,106,.6);border:1px solid rgba(196,149,106,.25);padding:6px 14px;border-radius:2px;cursor:pointer;background:transparent;font-family:var(--sans);transition:all .2s}
+.vlb-unmute:hover,.vlb-unmute.unmuted{color:var(--tan);border-color:var(--tan);background:rgba(196,149,106,.1)}
 
-/* wide items (2 col) */
-.work-item.wide{grid-column:span 2}
+/* OTHER WORK */
+.ws{background:var(--white)}
+.wh{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:52px;gap:24px;flex-wrap:wrap}
+.fw{display:flex;gap:8px;flex-wrap:wrap}
+.fb{font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:7px 18px;border:1px solid var(--cream3);border-radius:2px;cursor:pointer;background:transparent;color:var(--muted);font-family:var(--sans);transition:all .2s;white-space:nowrap}
+.fb:hover{border-color:var(--tan);color:var(--tan)}
+.fb.active{background:var(--ink);border-color:var(--ink);color:var(--cream)}
+.wgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.wi{border-radius:4px;overflow:hidden;cursor:pointer;position:relative}
+.wi.hid{display:none}
+.wimg{position:relative;overflow:hidden;aspect-ratio:4/5}
+.wimg.land{aspect-ratio:16/9}
+.wimg img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .65s var(--ease)}
+.wi:hover .wimg img{transform:scale(1.06)}
+.wov{position:absolute;inset:0;background:linear-gradient(to top,rgba(22,16,10,.88) 0%,rgba(22,16,10,.18) 55%,transparent 100%);opacity:0;transition:opacity .35s var(--ease);display:flex;flex-direction:column;justify-content:flex-end;padding:22px}
+.wi:hover .wov{opacity:1}
+.wbadge{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--tan);border:1px solid rgba(196,149,106,.4);padding:4px 10px;border-radius:1px;align-self:flex-start;margin-bottom:10px}
+.wname{font-family:var(--serif);font-size:22px;font-weight:300;color:var(--cream);line-height:1.2}
+.wsub{font-size:11px;color:rgba(250,246,240,.5);margin-top:4px}
+.wi.wide{grid-column:span 2}
 
-/* ── ABOUT ─────────────────────────────────── */
-.about-section{background:var(--ink);padding:110px 0}
-.about-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
-.about-label{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--tan);margin-bottom:12px;display:flex;align-items:center;gap:12px}
-.about-label::before{content:'';width:26px;height:1px;background:var(--tan)}
-.about-h2{font-family:var(--serif);font-size:clamp(36px,4vw,52px);font-weight:300;color:var(--cream);line-height:1.1;margin-bottom:28px}
-.about-h2 em{font-style:italic;color:var(--tan)}
-.about-bio{font-size:14px;line-height:1.85;color:rgba(250,246,240,.55);margin-bottom:32px}
-.about-detail{font-size:12px;color:rgba(250,246,240,.35);letter-spacing:.03em;line-height:2}
-.skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
-.skill-group h4{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--tan);margin-bottom:14px}
-.skill-list{list-style:none}
-.skill-list li{font-size:13px;color:rgba(250,246,240,.55);padding:8px 0;border-bottom:1px solid rgba(250,246,240,.06);display:flex;align-items:center;gap:8px}
-.skill-list li::before{content:'—';color:rgba(196,149,106,.4);font-size:10px}
+/* ABOUT */
+.as{background:var(--ink)}
+.ain{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.alabel{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--tan);margin-bottom:12px;display:flex;align-items:center;gap:12px}
+.alabel::before{content:'';width:26px;height:1px;background:var(--tan)}
+.ah2{font-family:var(--serif);font-size:clamp(36px,4vw,52px);font-weight:300;color:var(--cream);line-height:1.1;margin-bottom:28px}
+.ah2 em{font-style:italic;color:var(--tan)}
+.abio{font-size:14px;line-height:1.85;color:rgba(250,246,240,.55);margin-bottom:28px}
+.adet{font-size:12px;color:rgba(250,246,240,.3);letter-spacing:.03em;line-height:2}
+.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.sgh4{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--tan);margin-bottom:14px}
+.sgl{list-style:none}
+.sgl li{font-size:13px;color:rgba(250,246,240,.55);padding:8px 0;border-bottom:1px solid rgba(250,246,240,.06);display:flex;align-items:center;gap:8px}
+.sgl li::before{content:'—';color:rgba(196,149,106,.4);font-size:10px}
 
-/* ── FOOTER ────────────────────────────────── */
+/* FOOTER */
 footer{background:#0f0a06;padding:72px 64px 40px}
-.footer-inner{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:40px;padding-bottom:48px;border-bottom:1px solid rgba(250,246,240,.07);margin-bottom:36px}
-.footer-name{font-family:var(--serif);font-size:46px;font-weight:300;color:var(--cream);line-height:1.05}
-.footer-name em{font-style:italic;color:var(--tan)}
-.footer-mid{text-align:center;display:flex;flex-direction:column;align-items:center;gap:16px}
-.footer-divider{width:1px;height:80px;background:linear-gradient(to bottom,transparent,rgba(196,149,106,.3),transparent)}
-.footer-links{display:flex;flex-direction:column;align-items:flex-end;gap:14px}
-.footer-link{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(250,246,240,.35);transition:color .2s}
-.footer-link:hover{color:var(--tan)}
-.footer-base{max-width:1240px;margin:0 auto;display:flex;justify-content:space-between;font-size:11px;color:rgba(250,246,240,.18);letter-spacing:.04em}
+.fi{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:40px;padding-bottom:48px;border-bottom:1px solid rgba(250,246,240,.07);margin-bottom:36px}
+.fn{font-family:var(--serif);font-size:46px;font-weight:300;color:var(--cream);line-height:1.05}
+.fn em{font-style:italic;color:var(--tan)}
+.fdiv{width:1px;height:80px;background:linear-gradient(to bottom,transparent,rgba(196,149,106,.3),transparent)}
+.flinks{display:flex;flex-direction:column;align-items:flex-end;gap:14px}
+.fl{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(250,246,240,.32);transition:color .2s}
+.fl:hover{color:var(--tan)}
+.fb2{max-width:1240px;margin:0 auto;display:flex;justify-content:space-between;font-size:11px;color:rgba(250,246,240,.16);letter-spacing:.04em}
 
-/* ── ANIMATIONS ────────────────────────────── */
-@keyframes fadeUp{to{opacity:1;transform:none}}
+/* LIGHTBOX */
+.lb{position:fixed;inset:0;z-index:9000;background:rgba(10,6,2,.96);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s ease;padding:16px}
+.lb.open{opacity:1;pointer-events:all}
+.lb img{max-width:90vw;max-height:88vh;width:auto;height:auto;object-fit:contain;border-radius:3px;transform:scale(.94);transition:transform .35s ease;display:block}
+.lb.open img{transform:scale(1)}
+.lb-x{position:fixed;top:20px;right:22px;width:42px;height:42px;border:1px solid rgba(196,149,106,.45);border-radius:50%;background:rgba(22,16,10,.7);color:#c4956a;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,transform .2s;z-index:9001;line-height:1;font-family:sans-serif;border-style:solid}
+.lb-x:hover{background:rgba(196,149,106,.2);transform:rotate(90deg)}
+.lb-cap{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);text-align:center;pointer-events:none;white-space:nowrap;z-index:9001}
+.lb-ct{font-family:var(--serif);font-size:20px;font-weight:300;color:#faf6f0}
+.lb-cs{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#c4956a;margin-top:5px}
+.lb-p,.lb-n{position:fixed;top:50%;transform:translateY(-50%);background:rgba(22,16,10,.6);border:1px solid rgba(196,149,106,.25);color:#c4956a;width:42px;height:42px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:background .2s;z-index:9001;line-height:1;font-family:sans-serif;border-style:solid}
+.lb-p{left:16px}.lb-n{right:16px}
+.lb-p:hover,.lb-n:hover{background:rgba(196,149,106,.2)}
 
-/* ── RESPONSIVE ────────────────────────────── */
+/* ANIM */
+@keyframes fup{to{opacity:1;transform:none}}
+
+/* RESPONSIVE */
 @media(max-width:1024px){
-  .work-grid{grid-template-columns:repeat(2,1fr)}
-  .work-item.wide{grid-column:span 2}
+  .wgrid{grid-template-columns:repeat(2,1fr)}
+  .wi.wide{grid-column:span 2}
+  .bi-grid{grid-template-columns:repeat(3,1fr)}
+  /* motion card: keep 2-col but smaller */
+  .mc{grid-template-columns:1fr 1fr}
 }
 @media(max-width:768px){
   nav{padding:18px 24px}
   nav.scrolled{padding:12px 24px}
   .nav-links,.nav-cta{display:none}
   .hamburger{display:flex}
-  .hero{grid-template-columns:1fr;min-height:100svh}
-  .hero-right{position:absolute;inset:0;z-index:0}
-  .hero-right::after{background:linear-gradient(to top,rgba(22,16,10,.96) 0%,rgba(22,16,10,.5) 50%,rgba(22,16,10,.3) 100%)}
-  .hero-left{padding:100px 24px 80px;z-index:1;justify-content:flex-end}
-  .hero-scroll{left:24px}
-  .hero-stats{display:none}
-  .container{padding:0 24px}
+  .bi-content{padding:0 24px 72px}
+  .bi-meta{right:24px;bottom:72px}
+  .scroll-hint{left:24px;bottom:28px}
+  .bi-preview{display:none}
+  .wrap{padding:0 24px}
   section{padding:72px 0}
-  .feat-inner{grid-template-columns:1fr;gap:40px}
-  .feat-num{font-size:64px}
-  .work-grid{grid-template-columns:repeat(2,1fr);gap:12px}
-  .work-item.wide{grid-column:span 2}
-  .work-header{flex-direction:column;align-items:flex-start;gap:20px}
-  .about-inner{grid-template-columns:1fr;gap:48px}
-  .skills-grid{grid-template-columns:1fr 1fr}
+  /* motion cards go single column stacked on mobile */
+  .mc{grid-template-columns:1fr;min-height:auto}
+  .mvw{aspect-ratio:16/9}
+  .mvw video{height:auto}
+  .minfo{border-left:none;border-top:1px solid rgba(196,149,106,.08);padding:24px}
+  .wgrid{grid-template-columns:repeat(2,1fr);gap:12px}
+  .wi.wide{grid-column:span 2}
+  .wh{flex-direction:column;align-items:flex-start;gap:20px}
+  .ain{grid-template-columns:1fr;gap:48px}
+  .sgrid{grid-template-columns:1fr 1fr}
   footer{padding:56px 24px 32px}
-  .footer-inner{grid-template-columns:1fr;text-align:center;gap:24px}
-  .footer-links{align-items:center}
-  .footer-mid{display:none}
-  .footer-base{flex-direction:column;gap:6px;text-align:center}
+  .fi{grid-template-columns:1fr;text-align:center;gap:20px}
+  .flinks{align-items:center}
+  .fdiv{display:none}
+  .fb2{flex-direction:column;gap:6px;text-align:center}
+  .bi-grid{grid-template-columns:repeat(2,1fr)}
+  .lb-p,.lb-n{display:none}
+  .lb-cap{bottom:14px}
+  .vlb-inner{max-height:65vh}
+  .vlb video{max-height:65vh}
 }
 @media(max-width:480px){
-  .work-grid{grid-template-columns:1fr}
-  .work-item.wide{grid-column:span 1}
-  .work-img.land{aspect-ratio:4/3}
-  .hero-h1{font-size:52px}
-  .skills-grid{grid-template-columns:1fr}
+  .wgrid{grid-template-columns:1fr}
+  .wi.wide{grid-column:span 1}
+  .wimg.land{aspect-ratio:4/3}
+  .bi-h1{font-size:48px}
+  .sgrid{grid-template-columns:1fr}
+  .bi-grid{grid-template-columns:1fr 1fr}
 }
-/* ── LIGHTBOX ── */
-.lb-overlay{position:fixed;inset:0;z-index:9000;background:rgba(10,6,2,.96);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s ease;padding:16px}
-.lb-overlay.open{opacity:1;pointer-events:all}
-.lb-img-wrap{position:relative;display:flex;align-items:center;justify-content:center;max-width:90vw;max-height:88vh}
-.lb-overlay img{max-width:90vw;max-height:88vh;width:auto;height:auto;object-fit:contain;border-radius:3px;transform:scale(.94);transition:transform .35s ease;display:block;box-shadow:0 24px 80px rgba(0,0,0,.6)}
-.lb-overlay.open img{transform:scale(1)}
-.lb-close{position:fixed;top:20px;right:22px;width:42px;height:42px;border:1px solid rgba(196,149,106,.45);border-radius:50%;background:rgba(22,16,10,.7);color:#c4956a;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,transform .2s;z-index:9001;line-height:1;font-family:sans-serif}
-.lb-close:hover{background:rgba(196,149,106,.2);transform:rotate(90deg)}
-.lb-caption{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);text-align:center;pointer-events:none;white-space:nowrap;z-index:9001}
-.lb-cap-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:#faf6f0;letter-spacing:-.01em}
-.lb-cap-sub{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#c4956a;margin-top:5px}
-.lb-prev,.lb-next{position:fixed;top:50%;transform:translateY(-50%);background:rgba(22,16,10,.6);border:1px solid rgba(196,149,106,.25);color:#c4956a;width:42px;height:42px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:background .2s;z-index:9001;line-height:1;font-family:sans-serif}
-.lb-prev{left:16px}.lb-next{right:16px}
-.lb-prev:hover,.lb-next:hover{background:rgba(196,149,106,.2)}
-@media(max-width:768px){.lb-prev,.lb-next{display:none}.lb-caption{bottom:16px}}
 </style>
 </head>
 <body>
 
-<!-- Cursor -->
 <div class="cur" id="cur"></div>
 <div class="cur-r" id="curR"></div>
 
-<!-- LIGHTBOX MODAL -->
-<div class="lb-overlay" id="lbOverlay" role="dialog" aria-modal="true">
-  <div class="lb-img-wrap">
-    <img id="lbImg" src="" alt="">
+<!-- LIGHTBOX -->
+<div class="lb" id="lb">
+  <img id="lbImg" src="" alt="">
+  <button class="lb-x" id="lbX">✕</button>
+  <button class="lb-p" id="lbP">‹</button>
+  <button class="lb-n" id="lbN">›</button>
+  <div class="lb-cap"><div class="lb-ct" id="lbT"></div><div class="lb-cs" id="lbS"></div></div>
+</div>
+
+<!-- VIDEO LIGHTBOX -->
+<div class="vlb" id="vlb">
+  <button class="vlb-x" id="vlbX">✕</button>
+  <div class="vlb-inner">
+    <video id="vlbVid" muted playsinline loop style="width:100%;max-height:78vh;object-fit:contain;border-radius:4px;display:block"></video>
   </div>
-  <button class="lb-close" id="lbClose" aria-label="Close">✕</button>
-  <button class="lb-prev" id="lbPrev" aria-label="Previous">‹</button>
-  <button class="lb-next" id="lbNext" aria-label="Next">›</button>
-  <div class="lb-caption">
-    <div class="lb-cap-title" id="lbTitle"></div>
-    <div class="lb-cap-sub" id="lbSub"></div>
+  <div class="vlb-cap">
+    <div class="vlb-title" id="vlbTitle"></div>
+    <div class="vlb-sub" id="vlbSub"></div>
+  </div>
+  <div class="vlb-controls">
+    <button class="vlb-ctrl" id="vlbPlay" title="Play/Pause">&#9654;</button>
+    <button class="vlb-unmute" id="vlbMute">🔇 Tap to unmute</button>
   </div>
 </div>
 
-<!-- Mobile Menu -->
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#work" onclick="closeMobile()">Work</a>
-  <a href="candelia.html" onclick="closeMobile()">Brand Identity</a>
-  <a href="#about" onclick="closeMobile()">About</a>
-  <a href="#footer" onclick="closeMobile()">Contact</a>
+<!-- MOBILE MENU -->
+<div class="mob-menu" id="mobMenu">
+  <a href="#brand-identity" onclick="closeMob()">Brand Identity</a>
+  <a href="#motion" onclick="closeMob()">Motion</a>
+  <a href="#work" onclick="closeMob()">Other Work</a>
+  <a href="#about" onclick="closeMob()">About</a>
 </div>
 
 <!-- NAV -->
 <nav id="nav">
   <a href="index.html" class="nav-logo">Subhasree Sengupta</a>
   <ul class="nav-links">
-    <li><a href="#work">Work</a></li>
-    <li><a href="candelia.html">Brand Identity</a></li>
+    <li><a href="#brand-identity">Brand Identity</a></li>
+    <li><a href="#motion">Motion</a></li>
+    <li><a href="#work">Other Work</a></li>
     <li><a href="#about">About</a></li>
   </ul>
-  <a href="candelia.html" class="nav-cta">View Case Study</a>
-  <button class="hamburger" id="ham" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
+  <a href="candelia.html" class="nav-cta">Case Study ↗</a>
+  <button class="hamburger" id="ham"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- ════════════════════════
-     HERO
-════════════════════════ -->
-<div class="hero">
-  <div class="hero-left">
-    <div class="hero-eyebrow">Graphic Designer · Bangalore, India · 2025</div>
-    <h1 class="hero-h1">
-      Design<br>that <em>speaks</em><br>volumes.
-    </h1>
-    <p class="hero-sub">Subhasree Sengupta</p>
-    <p class="hero-role">Brand Identity · Print · Digital · Illustration</p>
-    <div class="hero-ctas">
-      <a href="#work" class="btn-primary">View All Work</a>
-      <a href="candelia.html" class="btn-ghost">Featured Case Study ↗</a>
+
+<!-- ═══════ 1 · BRAND IDENTITY HERO ═══════ -->
+<div class="bi-hero" id="brand-identity">
+  <div class="bi-bg">
+    <img src="images/09-billboard.jpg" alt="Candelia Billboard">
+  </div>
+  <div class="bi-preview">
+    <img src="images/06-social-media.jpg" alt="">
+    <img src="images/02-business-card.jpg" alt="">
+    <img src="images/08-poster.jpg" alt="">
+  </div>
+  <div class="bi-content">
+    <div class="bi-eyebrow">Featured · Brand Identity Case Study</div>
+    <h1 class="bi-h1">Candelia<br><em>Crafted with</em><br>Warmth.</h1>
+    <p class="bi-desc">A complete visual identity system for a premium handcrafted candle brand — logo, stationery, packaging, social media, billboard, and merchandise. Built with warmth in every decision.</p>
+    <div class="bi-tags">
+      <span class="bi-tag">Logo Design</span><span class="bi-tag">Brand Identity</span>
+      <span class="bi-tag">Packaging</span><span class="bi-tag">Stationery</span>
+      <span class="bi-tag">Social Media</span><span class="bi-tag">Advertising</span>
+      <span class="bi-tag">Merchandise</span><span class="bi-tag">Photoshop · Illustrator</span>
+    </div>
+    <div class="bi-ctas">
+      <a href="candelia.html" class="btn-p">View Full Case Study ↗</a>
+      <a href="#brand-gallery" class="btn-g">See All Deliverables ↓</a>
     </div>
   </div>
-  <div class="hero-right">
-    <img src="images/w-vector-art.jpg" alt="Portfolio Hero">
+  <div class="bi-meta">
+    <div><div class="bi-stat-n">22</div><div class="bi-stat-l">Appreciations</div></div>
+    <div><div class="bi-stat-n">1,515</div><div class="bi-stat-l">Behance Views</div></div>
   </div>
-  <div class="hero-stats">
-    <div><div class="stat-n">17</div><div class="stat-l">Projects</div></div>
-    <div><div class="stat-n">6+</div><div class="stat-l">Categories</div></div>
-  </div>
-  <div class="hero-scroll">
+  <div class="scroll-hint">
     <span>Scroll</span>
-    <div class="scroll-track"></div>
+    <div class="strack"></div>
   </div>
 </div>
+
+
+<!-- ═══════ 2 · BRAND IDENTITY GALLERY ═══════ -->
+<section class="bi-gal" id="brand-gallery">
+  <div class="wrap">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap">
+      <div>
+        <div class="slabel rv">01 — Brand Identity</div>
+        <h2 class="stitle rv rv1">Candelia — <em>All Deliverables</em></h2>
+      </div>
+      <a href="candelia.html" class="rv rv2" style="font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--tan);border-bottom:1px solid rgba(196,149,106,.3);padding-bottom:3px">Full Case Study →</a>
+    </div>
+    <div class="bi-grid">
+      <div class="bi-thumb rv" data-bi-idx="0"><img src="images/01-logo-story.jpg" alt="Logo Identity"><div class="bi-tlabel">Logo Identity</div></div>
+      <div class="bi-thumb rv rv1" data-bi-idx="1"><img src="images/02-business-card.jpg" alt="Business Card"><div class="bi-tlabel">Business Card</div></div>
+      <div class="bi-thumb rv rv2" data-bi-idx="2"><img src="images/03-letterhead.jpg" alt="Letterhead"><div class="bi-tlabel">Letterhead & Envelope</div></div>
+      <div class="bi-thumb rv rv3" data-bi-idx="3"><img src="images/04-id-card.jpg" alt="Identity Card"><div class="bi-tlabel">Identity Card</div></div>
+      <div class="bi-thumb rv" data-bi-idx="4"><img src="images/05-brochure.png" alt="Brochure"><div class="bi-tlabel">Brochure</div></div>
+      <div class="bi-thumb rv rv1" data-bi-idx="5"><img src="images/06-social-media.jpg" alt="Social Media Posters"><div class="bi-tlabel">Social Media Posters</div></div>
+      <div class="bi-thumb rv rv2" data-bi-idx="6"><img src="images/07-banner.jpg" alt="Advertising Banner"><div class="bi-tlabel">Advertising Banner</div></div>
+      <div class="bi-thumb rv rv3" data-bi-idx="7"><img src="images/08-poster.jpg" alt="Flash Sale Poster"><div class="bi-tlabel">Flash Sale Poster</div></div>
+      <div class="bi-thumb rv" data-bi-idx="8"><img src="images/09-billboard.jpg" alt="Billboard"><div class="bi-tlabel">Billboard</div></div>
+      <div class="bi-thumb rv rv1" data-bi-idx="9"><img src="images/11-packaging-final.png" alt="Product Packaging"><div class="bi-tlabel">Product Packaging</div></div>
+      <div class="bi-thumb rv rv2" data-bi-idx="10"><img src="images/12-merchandise-mockups.jpg" alt="Merchandise Mockups"><div class="bi-tlabel">Merchandise</div></div>
+      <div class="bi-thumb rv rv3" data-bi-idx="11"><img src="images/13-merchandise-apparel.jpg" alt="Brand Apparel"><div class="bi-tlabel">Brand Apparel</div></div>
+    </div>
+    <div class="bi-cta-row rv">
+      <div class="bi-rule"></div>
+      <a href="candelia.html" class="btn-p" style="white-space:nowrap">View Complete Case Study ↗</a>
+      <div class="bi-rule"></div>
+    </div>
+  </div>
+</section>
+
 
 <!-- TICKER -->
 <div class="ticker">
-  <div class="ticker-track">
-    <span class="tick-item">Brand Identity</span><span class="tick-item">Poster Design</span>
-    <span class="tick-item">Editorial Layout</span><span class="tick-item">Adobe Photoshop</span>
-    <span class="tick-item">Adobe Illustrator</span><span class="tick-item">Logo Design</span>
-    <span class="tick-item">Packaging Design</span><span class="tick-item">Digital Illustration</span>
-    <span class="tick-item">Photo Manipulation</span><span class="tick-item">Social Media Design</span>
-    <span class="tick-item">Brand Identity</span><span class="tick-item">Poster Design</span>
-    <span class="tick-item">Editorial Layout</span><span class="tick-item">Adobe Photoshop</span>
-    <span class="tick-item">Adobe Illustrator</span><span class="tick-item">Logo Design</span>
-    <span class="tick-item">Packaging Design</span><span class="tick-item">Digital Illustration</span>
-    <span class="tick-item">Photo Manipulation</span><span class="tick-item">Social Media Design</span>
+  <div class="t-track">
+    <span class="t-item">Brand Identity</span><span class="t-item">Motion Design</span><span class="t-item">Poster Design</span>
+    <span class="t-item">Adobe Photoshop</span><span class="t-item">Adobe Illustrator</span><span class="t-item">Logo Design</span>
+    <span class="t-item">Packaging Design</span><span class="t-item">Digital Illustration</span><span class="t-item">Photo Manipulation</span>
+    <span class="t-item">Social Media Design</span><span class="t-item">Brand Identity</span><span class="t-item">Motion Design</span>
+    <span class="t-item">Poster Design</span><span class="t-item">Adobe Photoshop</span><span class="t-item">Adobe Illustrator</span>
+    <span class="t-item">Logo Design</span><span class="t-item">Packaging Design</span><span class="t-item">Digital Illustration</span>
+    <span class="t-item">Photo Manipulation</span><span class="t-item">Social Media Design</span>
   </div>
 </div>
 
-<!-- ════════════════════════
-     FEATURED — CANDELIA
-════════════════════════ -->
-<section class="featured">
-  <div class="container">
-    <div class="feat-inner">
-      <div class="rv">
-        <div class="feat-img-wrap">
-          <img src="images/09-billboard.jpg" alt="Candelia Brand Identity — Billboard">
+
+<!-- ═══════ 3 · MOTION POSTERS ═══════ -->
+<section class="ms" id="motion">
+  <div class="wrap">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap">
+      <div>
+        <div class="slabel rv" style="color:var(--tan)"><span style="display:inline-block;width:26px;height:1px;background:var(--tan);margin-right:12px;vertical-align:middle"></span>02 — Motion Design</div>
+        <h2 class="stitle rv rv1" style="color:var(--cream)">Motion <em>Posters</em></h2>
+      </div>
+      <p class="rv rv2 ms-note">Click to play. Animated brand posters exploring motion, timing, and visual storytelling.</p>
+    </div>
+    <div class="mgrid">
+
+      <!-- Urban Step -->
+      <div class="mc rv" id="mc0">
+        <div class="mvw" id="mvw0">
+          <span class="mbadge">Motion Poster</span>
+          <video id="v0" poster="images/motion-urbanstep-poster.jpg" muted loop playsinline preload="none">
+            <source src="images/motion-urbanstep.mp4" type="video/mp4">
+          </video>
+          <div class="mplay" id="p0">
+            <div class="mplay-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+          </div>
+          <div class="mexpand-hint">
+            <svg viewBox="0 0 24 24"><path d="M15 3h6v6h-2V5h-4V3zM9 3H3v6h2V5h4V3zM15 21v-2h4v-4h2v6h-6zM3 21h6v-2H5v-4H3v6z"/></svg>
+            Click to expand
+          </div>
+        </div>
+        <div class="minfo">
+          <div class="mnum">01 / 03</div>
+          <div class="mtitle">Urban Step</div>
+          <div class="mbrand">Footwear Brand · Motion Poster</div>
+          <p class="mdesc">Motion poster for Urban Step, a footwear brand, designed with a modern and energetic visual style. The animation focuses on clean composition, smooth motion, and dynamic elements to highlight the product and create an engaging, urban-inspired feel.</p>
+          <button class="mwatch-btn" data-vi="0">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            Watch Full Screen
+          </button>
         </div>
       </div>
-      <div class="rv rv-d2">
-        <div class="feat-num">01</div>
-        <div class="sec-label">Featured Project</div>
-        <h2 class="sec-title" style="margin-bottom:16px;">Candelia — <em>Brand Identity</em></h2>
-        <div class="feat-tag-row">
-          <span class="feat-tag">Brand Identity</span>
-          <span class="feat-tag">Logo Design</span>
-          <span class="feat-tag">Packaging</span>
-          <span class="feat-tag">Social Media</span>
-          <span class="feat-tag">Advertising</span>
-          <span class="feat-tag">Merchandise</span>
+
+      <!-- Candelia Motion -->
+      <div class="mc rv rv2" id="mc1">
+        <div class="mvw" id="mvw1">
+          <span class="mbadge">Logo Animation</span>
+          <video id="v1" poster="images/motion-candelia-poster.jpg" muted loop playsinline preload="none">
+            <source src="images/motion-candelia.mp4" type="video/mp4">
+          </video>
+          <div class="mplay" id="p1">
+            <div class="mplay-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+          </div>
+          <div class="mexpand-hint">
+            <svg viewBox="0 0 24 24"><path d="M15 3h6v6h-2V5h-4V3zM9 3H3v6h2V5h4V3zM15 21v-2h4v-4h2v6h-6zM3 21h6v-2H5v-4H3v6z"/></svg>
+            Click to expand
+          </div>
         </div>
-        <p class="feat-desc">A complete visual identity system for a premium handcrafted candle brand — crafted with warmth. From logo conception through stationery, brochure, social media, packaging, billboard, and branded merchandise.</p>
-        <p class="feat-desc" style="margin-bottom:40px;font-size:13px;color:rgba(156,132,110,.7)">Tools: Adobe Photoshop · Adobe Illustrator · Behance: 22 appreciations, 1,515 views</p>
-        <a href="candelia.html" class="feat-cta">View Full Case Study &nbsp;→</a>
+        <div class="minfo">
+          <div class="mnum">02 / 03</div>
+          <div class="mtitle">Candelia</div>
+          <div class="mbrand">Candle Brand · Logo Animation</div>
+          <p class="mdesc">Designed and animated the logo for Candelia, developed as part of a complete brand identity project. A minimal and clean approach with smooth motion and scaling, complemented by gentle flicker and glow effects to achieve a warm and soothing aesthetic.</p>
+          <button class="mwatch-btn" data-vi="1">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            Watch Full Screen
+          </button>
+        </div>
       </div>
+
+      <!-- Women's Day -->
+      <div class="mc rv rv3" id="mc2">
+        <div class="mvw" id="mvw2">
+          <span class="mbadge">Motion Poster</span>
+          <video id="v2" poster="images/motion-womensday-poster.jpg" muted loop playsinline preload="none">
+            <source src="images/motion-womensday.mp4" type="video/mp4">
+          </video>
+          <div class="mplay" id="p2">
+            <div class="mplay-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+          </div>
+          <div class="mexpand-hint">
+            <svg viewBox="0 0 24 24"><path d="M15 3h6v6h-2V5h-4V3zM9 3H3v6h2V5h4V3zM15 21v-2h4v-4h2v6h-6zM3 21h6v-2H5v-4H3v6z"/></svg>
+            Click to expand
+          </div>
+        </div>
+        <div class="minfo">
+          <div class="mnum">03 / 03</div>
+          <div class="mtitle">Women's Day</div>
+          <div class="mbrand">Celebration Poster · Motion Design</div>
+          <p class="mdesc">Created a motion poster for Women's Day focusing on a simple and meaningful visual concept. An early exploration of basic animation and layout to convey the message of celebrating women.</p>
+          <button class="mwatch-btn" data-vi="2">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            Watch Full Screen
+          </button>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
 
-<!-- ════════════════════════
-     WORK GRID
-════════════════════════ -->
-<section class="work-section" id="work">
-  <div class="container">
-    <div class="work-header">
+
+<!-- ═══════ 4 · OTHER WORK ═══════ -->
+<section class="ws" id="work">
+  <div class="wrap">
+    <div class="wh">
       <div>
-        <div class="sec-label rv">Selected Work</div>
-        <h2 class="sec-title rv rv-d1">All <em>Projects</em></h2>
+        <div class="slabel rv">03 — Selected Work</div>
+        <h2 class="stitle rv rv1">Other <em>Projects</em></h2>
       </div>
-      <div class="filter-wrap rv rv-d2">
-        <button class="filter-btn active" data-filter="all">All</button>
-        <button class="filter-btn" data-filter="poster">Posters</button>
-        <button class="filter-btn" data-filter="magazine">Magazine</button>
-        <button class="filter-btn" data-filter="branding">Branding</button>
-        <button class="filter-btn" data-filter="illustration">Illustration</button>
+      <div class="fw rv rv2">
+        <button class="fb active" data-f="all">All</button>
+        <button class="fb" data-f="poster">Posters</button>
+        <button class="fb" data-f="magazine">Magazine</button>
+        <button class="fb" data-f="branding">Branding</button>
+        <button class="fb" data-f="illustration">Illustration</button>
       </div>
     </div>
+    <div class="wgrid" id="wg">
 
-    <div class="work-grid" id="workGrid">
-
-      <div class="work-item rv" data-cat="poster" data-title="Event Poster" data-sub="Kenny Sebastian Comedy Night · Photoshop">
-        <div class="work-img">
-          <img src="images/w-event-poster.jpg" alt="Event Poster" loading="lazy">
-          <div class="work-overlay">
-            <span class="work-cat-badge">Poster Design</span>
-            <h3 class="work-name">Event Poster</h3>
-            <p class="work-sub">Kenny Sebastian Comedy Night</p>
-          </div>
-        </div>
+      <div class="wi rv" data-c="poster" data-t="Event Poster" data-s="Kenny Sebastian Comedy Night · Photoshop">
+        <div class="wimg"><img src="images/w-event-poster.jpg" alt="Event Poster" loading="lazy">
+        <div class="wov"><span class="wbadge">Poster Design</span><h3 class="wname">Event Poster</h3><p class="wsub">Kenny Sebastian Comedy Night</p></div></div>
       </div>
 
-      <div class="work-item rv rv-d1" data-cat="poster" data-title="Jewellery Poster" data-sub="Anjali Jewellers — New Collection Launch">
-        <div class="work-img">
-          <img src="images/w-jewellery.jpg" alt="Jewellery Poster" loading="lazy">
-          <div class="work-overlay">
-            <span class="work-cat-badge">Poster Design</span>
-            <h3 class="work-name">Jewellery Poster</h3>
-            <p class="work-sub">Anjali Jewellers — New Collection Launch</p>
-          </div>
-        </div>
+      <div class="wi rv rv1" data-c="poster" data-t="Jewellery Poster" data-s="Anjali Jewellers — New Collection Launch">
+        <div class="wimg"><img src="images/w-jewellery.jpg" alt="Jewellery Poster" loading="lazy">
+        <div class="wov"><span class="wbadge">Poster Design</span><h3 class="wname">Jewellery Poster</h3><p class="wsub">Anjali Jewellers — New Collection Launch</p></div></div>
       </div>
 
-      <div class="work-item rv rv-d2" data-cat="poster" data-title="Vintage Poster" data-sub="World Radio Day — 13th February">
-        <div class="work-img">
-          <img src="images/w-vintage-radio.jpg" alt="Vintage Poster" loading="lazy">
-          <div class="work-overlay">
-            <span class="work-cat-badge">Poster Design</span>
-            <h3 class="work-name">Vintage Poster</h3>
-            <p class="work-sub">World Radio Day — 13th February</p>
-          </div>
-        </div>
+      <div class="wi rv rv2" data-c="poster" data-t="Vintage Poster" data-s="World Radio Day — 13th February">
+        <div class="wimg"><img src="images/w-vintage-radio.jpg" alt="Vintage Poster" loading="lazy">
+        <div class="wov"><span class="wbadge">Poster Design</span><h3 class="wname">Vintage Poster</h3><p class="wsub">World Radio Day — 13th February</p></div></div>
       </div>
 
-      <div class="work-item rv" data-cat="poster" data-title="Sneaker Collection" data-sub="Social Media Concept Design · Photoshop">
-        <div class="work-img">
-          <img src="images/w-sneaker.jpg" alt="Sneaker Poster" loading="lazy">
-          <div class="work-overlay">
-            <span class="work-cat-badge">Social Media Poster</span>
-            <h3 class="work-name">Sneaker Collection</h3>
-            <p class="work-sub">Social Media Concept Design</p>
-          </div>
-        </div>
+      <div class="wi rv" data-c="poster" data-t="Sneaker Collection" data-s="Social Media Concept Design · Photoshop">
+        <div class="wimg"><img src="images/w-sneaker.jpg" alt="Sneaker Poster" loading="lazy">
+        <div class="wov"><span class="wbadge">Social Media Poster</span><h3 class="wname">Sneaker Collection</h3><p class="wsub">Social Media Concept Design</p></div></div>
       </div>
 
-      <div class="work-item rv rv-d1" data-cat="poster" data-title="Healthy Food Poster" data-sub="Food Delivery — Photoshop">
-        <div class="work-img">
-          <img src="images/w-food-healthy.jpg" alt="Healthy Food Poster" loading="lazy">
-          <div class="work-overlay">
-            <span class="work-cat-badge">Poster Design</span>
-            <h3 class="work-name">Healthy Food Poster</h3>
-            <p class="work-sub">Food Delivery — Photoshop</p>
-          </div>
-        </div>
+      <div class="wi rv rv1" data-c="poster" data-t="Healthy Food Poster" data-s="Food Delivery — Photoshop">
+        <div class="wimg"><img src="images/w-food-healthy.jpg" alt="Healthy Food Poster" loading="lazy">
+        <div class="wov"><span class="wbadge">Poster Design</span><h3 class="wname">Healthy Food Poster</h3><p class="wsub">Food Delivery — Photoshop</p></div></div>
       </div>
 
-      <div class="work-item rv rv-d2" data-cat="poster" data-title="Food Poster" data-sub="Burger — Photoshop Concept">
-        <div class="work-img">
-          <img src="images/w-food-burger.jpg" alt="Food Poster Photoshop" loading="lazy">
-          <div class="work-overlay">
-            <span class="work-cat-badge">Poster Design</span>
-            <h3 class="work-name">Food Poster</h3>
-            <p class="work-sub">Burger — Photoshop Concept</p>
-          </div>
-        </div>
+      <div class="wi rv rv2" data-c="poster" data-t="Food Poster" data-s="Burger — Photoshop Concept">
+        <div class="wimg"><img src="images/w-food-burger.jpg" alt="Food Poster" loading="lazy">
+        <div class="wov"><span class="wbadge">Poster Design</span><h3 class="wname">Food Poster</h3><p class="wsub">Burger — Photoshop Concept</p></div></div>
       </div>
 
-      <div class="work-item rv" data-cat="poster" data-title="Independence Day" data-sub="Patriotic Poster — Digital Illustration">
-        <div class="work-img">
-          <img src="images/w-independence.png" alt="Independence Day Poster" loading="lazy">
-          <div class="work-overlay">
-            <span class="work-cat-badge">Poster Design</span>
-            <h3 class="work-name">Independence Day</h3>
-            <p class="work-sub">Patriotic Poster — Digital</p>
-          </div>
-        </div>
+      <div class="wi rv" data-c="poster" data-t="Independence Day" data-s="Patriotic Poster — Digital Illustration">
+        <div class="wimg"><img src="images/w-independence.png" alt="Independence Day" loading="lazy">
+        <div class="wov"><span class="wbadge">Poster Design</span><h3 class="wname">Independence Day</h3><p class="wsub">Patriotic Poster — Digital</p></div></div>
       </div>
 
-      <!-- MAGAZINE -->
-      <div class="work-item rv rv-d1" data-cat="magazine" data-title="Travel Magazine" data-sub="Cover Design — November 2024">
-        <div class="work-img">
-          <img src="images/w-travel-mag.jpg" alt="Travel Magazine" loading="lazy">
-          <div class="work-overlay">
-            <span class="work-cat-badge">Editorial Design</span>
-            <h3 class="work-name">Travel Magazine</h3>
-            <p class="work-sub">Cover Design — November 2024</p>
-          </div>
-        </div>
+      <div class="wi rv rv1" data-c="magazine" data-t="Travel Magazine" data-s="Cover Design — November 2024">
+        <div class="wimg"><img src="images/w-travel-mag.jpg" alt="Travel Magazine" loading="lazy">
+        <div class="wov"><span class="wbadge">Editorial Design</span><h3 class="wname">Travel Magazine</h3><p class="wsub">Cover Design — November 2024</p></div></div>
       </div>
 
-      <div class="work-item rv rv-d2" data-cat="magazine" data-title="Fashion Magazine Cover" data-sub="Cover Layout Design Exercise">
-        <div class="work-img">
-          <img src="images/w-fashion-mag.jpg" alt="Fashion Magazine" loading="lazy">
-          <div class="work-overlay">
-            <span class="work-cat-badge">Editorial Design</span>
-            <h3 class="work-name">Fashion Magazine Cover</h3>
-            <p class="work-sub">Cover Layout Design Exercise</p>
-          </div>
-        </div>
+      <div class="wi rv rv2" data-c="magazine" data-t="Fashion Magazine Cover" data-s="Cover Layout Design Exercise">
+        <div class="wimg"><img src="images/w-fashion-mag.jpg" alt="Fashion Magazine" loading="lazy">
+        <div class="wov"><span class="wbadge">Editorial Design</span><h3 class="wname">Fashion Magazine Cover</h3><p class="wsub">Cover Layout Design Exercise</p></div></div>
       </div>
 
-      <div class="work-item rv" data-cat="magazine" data-title="Kids Magazine Cover" data-sub="National Geographic Kids Style">
-        <div class="work-img">
-          <img src="images/w-kids-mag.jpg" alt="Kids Magazine" loading="lazy">
-          <div class="work-overlay">
-            <span class="work-cat-badge">Editorial Design</span>
-            <h3 class="work-name">Kids Magazine Cover</h3>
-            <p class="work-sub">National Geographic Kids Style</p>
-          </div>
-        </div>
+      <div class="wi rv" data-c="magazine" data-t="Kids Magazine Cover" data-s="National Geographic Kids Style">
+        <div class="wimg"><img src="images/w-kids-mag.jpg" alt="Kids Magazine" loading="lazy">
+        <div class="wov"><span class="wbadge">Editorial Design</span><h3 class="wname">Kids Magazine Cover</h3><p class="wsub">National Geographic Kids Style</p></div></div>
       </div>
 
-      <!-- BRANDING -->
-      <div class="work-item rv rv-d1" data-cat="branding" data-title="Farm Bite Chicken" data-sub="Logo & Brand Identity Design">
-        <div class="work-img" style="aspect-ratio:4/3">
-          <img src="images/w-logo-chicken.jpg" alt="Farm Bite Chicken Logo" loading="lazy">
-          <div class="work-overlay">
-            <span class="work-cat-badge">Logo Design</span>
-            <h3 class="work-name">Farm Bite Chicken</h3>
-            <p class="work-sub">Logo &amp; Brand Identity</p>
-          </div>
-        </div>
+      <div class="wi rv rv1" data-c="branding" data-t="Farm Bite Chicken" data-s="Logo & Brand Identity Design">
+        <div class="wimg" style="aspect-ratio:4/3"><img src="images/w-logo-chicken.jpg" alt="Farm Bite Chicken" loading="lazy">
+        <div class="wov"><span class="wbadge">Logo Design</span><h3 class="wname">Farm Bite Chicken</h3><p class="wsub">Logo &amp; Brand Identity</p></div></div>
       </div>
 
-      <div class="work-item rv rv-d2" data-cat="branding" data-title="Garden Blossoms" data-sub="Indoor Plant Co. — Logo & Brand">
-        <div class="work-img" style="aspect-ratio:4/3">
-          <img src="images/w-logo-plant.jpg" alt="Garden Blossoms Logo" loading="lazy">
-          <div class="work-overlay">
-            <span class="work-cat-badge">Logo Design</span>
-            <h3 class="work-name">Garden Blossoms</h3>
-            <p class="work-sub">Indoor Plant Co. — Logo &amp; Brand</p>
-          </div>
-        </div>
+      <div class="wi rv rv2" data-c="branding" data-t="Garden Blossoms" data-s="Indoor Plant Co. — Logo & Brand">
+        <div class="wimg" style="aspect-ratio:4/3"><img src="images/w-logo-plant.jpg" alt="Garden Blossoms" loading="lazy">
+        <div class="wov"><span class="wbadge">Logo Design</span><h3 class="wname">Garden Blossoms</h3><p class="wsub">Indoor Plant Co. — Logo &amp; Brand</p></div></div>
       </div>
 
-      <!-- ILLUSTRATION -->
-      <div class="work-item rv" data-cat="illustration" data-title="Vector Portrait" data-sub="Adobe Illustrator — Digital Art">
-        <div class="work-img">
-          <img src="images/w-vector-art.jpg" alt="Vector Art Portrait" loading="lazy">
-          <div class="work-overlay">
-            <span class="work-cat-badge">Vector Art</span>
-            <h3 class="work-name">Vector Portrait</h3>
-            <p class="work-sub">Adobe Illustrator — Digital Art</p>
-          </div>
-        </div>
+      <div class="wi rv" data-c="illustration" data-t="Vector Portrait" data-s="Adobe Illustrator — Digital Art">
+        <div class="wimg"><img src="images/w-vector-art.jpg" alt="Vector Portrait" loading="lazy">
+        <div class="wov"><span class="wbadge">Vector Art</span><h3 class="wname">Vector Portrait</h3><p class="wsub">Adobe Illustrator — Digital Art</p></div></div>
       </div>
 
-      <div class="work-item wide rv rv-d1" data-cat="illustration" data-title="Matte Painting" data-sub="Multi-image Compositing — Photoshop">
-        <div class="work-img land">
-          <img src="images/w-matte-painting.jpg" alt="Matte Painting" loading="lazy">
-          <div class="work-overlay">
-            <span class="work-cat-badge">Photo Manipulation</span>
-            <h3 class="work-name">Matte Painting</h3>
-            <p class="work-sub">Before / After — Multi-image Compositing in Photoshop</p>
-          </div>
-        </div>
+      <div class="wi wide rv rv1" data-c="illustration" data-t="Matte Painting" data-s="Multi-image Compositing — Photoshop">
+        <div class="wimg land"><img src="images/w-matte-painting.jpg" alt="Matte Painting" loading="lazy">
+        <div class="wov"><span class="wbadge">Photo Manipulation</span><h3 class="wname">Matte Painting</h3><p class="wsub">Before / After — Multi-image Compositing</p></div></div>
       </div>
 
-      <div class="work-item rv" data-cat="illustration" data-title="Photo Restoration" data-sub="Damage Repair & Retouching — Photoshop">
-        <div class="work-img" style="aspect-ratio:auto;min-height:200px">
+      <div class="wi rv" data-c="illustration" data-t="Photo Restoration" data-s="Damage Repair & Retouching — Photoshop">
+        <div class="wimg" style="aspect-ratio:auto;min-height:200px">
           <img src="images/w-photo-restore.webp" alt="Photo Restoration" loading="lazy" style="height:auto;object-fit:contain;background:#f5ede0">
-          <div class="work-overlay">
-            <span class="work-cat-badge">Photo Restoration</span>
-            <h3 class="work-name">Photo Restoration</h3>
-            <p class="work-sub">Damage Repair &amp; Retouching</p>
-          </div>
+          <div class="wov"><span class="wbadge">Photo Restoration</span><h3 class="wname">Photo Restoration</h3><p class="wsub">Damage Repair &amp; Retouching</p></div>
         </div>
       </div>
 
-    </div><!-- /work-grid -->
+    </div>
   </div>
 </section>
 
-<!-- ════════════════════════
-     ABOUT
-════════════════════════ -->
-<section class="about-section" id="about">
-  <div class="container">
-    <div class="about-inner">
+
+<!-- ABOUT -->
+<section class="as" id="about">
+  <div class="wrap">
+    <div class="ain">
       <div>
-        <div class="about-label rv">About Me</div>
-        <h2 class="about-h2 rv rv-d1">
-          Designer.<br><em>Creator.</em><br>Storyteller.
-        </h2>
-        <p class="about-bio rv rv-d2">
-          I'm Subhasree Sengupta, a graphic designer based in Bangalore, India. I specialise in brand identity, print design, and digital visual communication — creating work that communicates feeling, not just information.
-        </p>
-        <p class="about-bio rv rv-d3" style="margin-bottom:0">
-          My process starts with understanding the story a brand needs to tell, then finding the visual language to tell it — from the first logo sketch to the final billboard mockup.
-        </p>
-        <p class="about-detail rv rv-d4" style="margin-top:28px">
-          Location: Bangalore, India &nbsp;·&nbsp; Available for freelance &amp; full-time roles<br>
-          Behance: behance.net/subhasrsengupt2
-        </p>
+        <div class="alabel rv">About Me</div>
+        <h2 class="ah2 rv rv1">Designer.<br><em>Creator.</em><br>Storyteller.</h2>
+        <p class="abio rv rv2">I'm Subhasree Sengupta, a graphic designer based in Bangalore, India. I specialise in brand identity, print design, motion, and digital visual communication — creating work that communicates feeling, not just information.</p>
+        <p class="abio rv rv3" style="margin-bottom:0">My process starts with understanding the story a brand needs to tell, then finding the visual language to tell it — from the first logo sketch to the final billboard or motion poster.</p>
+        <p class="adet rv rv4" style="margin-top:28px">Location: Bangalore, India &nbsp;·&nbsp; Available for freelance &amp; full-time roles<br>Behance: behance.net/subhasrsengupt2</p>
       </div>
-      <div class="rv rv-d2">
-        <div class="skills-grid">
-          <div class="skill-group">
-            <h4>Design Skills</h4>
-            <ul class="skill-list">
-              <li>Brand Identity</li>
-              <li>Logo Design</li>
-              <li>Poster Design</li>
-              <li>Editorial Layout</li>
-              <li>Packaging Design</li>
-              <li>Social Media</li>
-              <li>Merchandise Design</li>
+      <div class="rv rv2">
+        <div class="sgrid">
+          <div>
+            <div class="sgh4">Design Skills</div>
+            <ul class="sgl">
+              <li>Brand Identity</li><li>Logo Design</li><li>Motion Poster</li>
+              <li>Poster Design</li><li>Editorial Layout</li><li>Packaging Design</li><li>Social Media</li>
             </ul>
           </div>
-          <div class="skill-group">
-            <h4>Tools</h4>
-            <ul class="skill-list">
-              <li>Adobe Photoshop</li>
-              <li>Adobe Illustrator</li>
-              <li>Photo Retouching</li>
-              <li>Matte Painting</li>
-              <li>Vector Illustration</li>
-              <li>Print Production</li>
-              <li>Mockup Design</li>
+          <div>
+            <div class="sgh4">Tools</div>
+            <ul class="sgl">
+              <li>Adobe Photoshop</li><li>Adobe Illustrator</li><li>Photo Retouching</li>
+              <li>Matte Painting</li><li>Vector Illustration</li><li>Print Production</li><li>Mockup Design</li>
             </ul>
           </div>
         </div>
@@ -591,148 +637,161 @@ footer{background:#0f0a06;padding:72px 64px 40px}
   </div>
 </section>
 
-<!-- ════════════════════════
-     FOOTER
-════════════════════════ -->
+
+<!-- FOOTER -->
 <footer id="footer">
-  <div class="footer-inner">
+  <div class="fi">
     <div>
-      <p class="footer-name">Subhasree<br><em>Sengupta</em></p>
-      <p style="font-size:12px;color:rgba(250,246,240,.3);margin-top:12px;line-height:1.8">Graphic Designer<br>Bangalore, India · 2025</p>
+      <p class="fn">Subhasree<br><em>Sengupta</em></p>
+      <p style="font-size:12px;color:rgba(250,246,240,.28);margin-top:12px;line-height:1.8">Graphic Designer<br>Bangalore, India · 2025</p>
     </div>
-    <div class="footer-mid">
-      <div class="footer-divider"></div>
-    </div>
-    <div class="footer-links">
-      <a href="candelia.html" class="footer-link">Candelia Case Study →</a>
-      <a href="https://www.behance.net/subhasrsengupt2" class="footer-link" target="_blank">Behance Portfolio →</a>
-      <a href="/cdn-cgi/l/email-protection#f390929d97969f9a9290929d979f9680b3949e929a9fdd909c9e" class="footer-link">Get in Touch →</a>
+    <div style="display:flex;flex-direction:column;align-items:center"><div class="fdiv"></div></div>
+    <div class="flinks">
+      <a href="candelia.html" class="fl">Candelia Case Study →</a>
+      <a href="https://www.behance.net/subhasrsengupt2" class="fl" target="_blank">Behance Portfolio →</a>
+      <a href="/cdn-cgi/l/email-protection#cdaeaca3a9a8a1a4acaeaca3a9a1a8be8daaa0aca4a1e3aea2a0" class="fl">Get in Touch →</a>
     </div>
   </div>
-  <div class="footer-base">
+  <div class="fb2">
     <span>© 2025 Subhasree Sengupta. All rights reserved.</span>
-    <span>Made with Adobe Photoshop &amp; Illustrator</span>
+    <span>Adobe Photoshop · Illustrator · Motion Design</span>
   </div>
 </footer>
 
-<script>
-/* ── CURSOR ── */
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+/* CURSOR */
 const cur=document.getElementById('cur'),curR=document.getElementById('curR');
 let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
-(function loop(){cur.style.cssText=`left:${mx}px;top:${my}px`;rx+=(mx-rx)*.11;ry+=(my-ry)*.11;curR.style.cssText=`left:${rx}px;top:${ry}px`;requestAnimationFrame(loop);})();
-document.querySelectorAll('a,button,.work-item,.feat-img-wrap').forEach(el=>{
+(function anim(){cur.style.left=mx+'px';cur.style.top=my+'px';rx+=(mx-rx)*.11;ry+=(my-ry)*.11;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(anim);})();
+document.querySelectorAll('a,button,.wi,.bi-thumb,.mc').forEach(el=>{
   el.addEventListener('mouseenter',()=>{curR.style.width='56px';curR.style.height='56px';curR.style.borderColor='rgba(196,149,106,.8)';});
   el.addEventListener('mouseleave',()=>{curR.style.width='34px';curR.style.height='34px';curR.style.borderColor='rgba(196,149,106,.45)';});
 });
 
-/* ── NAV SCROLL ── */
+/* NAV */
 const nav=document.getElementById('nav');
-window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>50));
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>60));
 
-/* ── HAMBURGER ── */
-const ham=document.getElementById('ham'),menu=document.getElementById('mobileMenu');
-ham.addEventListener('click',()=>{ham.classList.toggle('open');menu.classList.toggle('open');});
-function closeMobile(){ham.classList.remove('open');menu.classList.remove('open');}
+/* HAMBURGER */
+const ham=document.getElementById('ham'),mob=document.getElementById('mobMenu');
+ham.addEventListener('click',()=>{ham.classList.toggle('open');mob.classList.toggle('open');});
+function closeMob(){ham.classList.remove('open');mob.classList.remove('open');}
 
-/* ── REVEAL ON SCROLL ── */
-const rvEls=document.querySelectorAll('.rv');
-const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on');});},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
-rvEls.forEach(el=>obs.observe(el));
+/* REVEAL */
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on');});},{threshold:.08,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
 
-/* ── FILTER ── */
-const btns=document.querySelectorAll('.filter-btn');
-btns.forEach(btn=>{
+/* LIGHTBOX */
+const lb=document.getElementById('lb'),lbImg=document.getElementById('lbImg'),lbT=document.getElementById('lbT'),lbS=document.getElementById('lbS');
+let items=[],idx=0;
+function showLb(i){const d=items[i];lbImg.src=d.src;lbImg.alt=d.t;lbT.textContent=d.t;lbS.textContent=d.s;lb.classList.add('open');document.body.style.overflow='hidden';}
+function closeLb(){lb.classList.remove('open');document.body.style.overflow='';setTimeout(()=>{lbImg.src='';},300);}
+document.getElementById('lbX').addEventListener('click',closeLb);
+document.getElementById('lbP').addEventListener('click',()=>{idx=(idx-1+items.length)%items.length;showLb(idx);});
+document.getElementById('lbN').addEventListener('click',()=>{idx=(idx+1)%items.length;showLb(idx);});
+lb.addEventListener('click',e=>{if(e.target===lb||e.target===lbImg)closeLb();});
+document.addEventListener('keydown',e=>{if(!lb.classList.contains('open'))return;if(e.key==='Escape')closeLb();if(e.key==='ArrowLeft'){idx=(idx-1+items.length)%items.length;showLb(idx);}if(e.key==='ArrowRight'){idx=(idx+1)%items.length;showLb(idx);}});
+let tx=0;
+lb.addEventListener('touchstart',e=>{tx=e.changedTouches[0].screenX;},{passive:true});
+lb.addEventListener('touchend',e=>{const dx=e.changedTouches[0].screenX-tx;if(Math.abs(dx)>50){idx=dx<0?(idx+1)%items.length:(idx-1+items.length)%items.length;showLb(idx);}});
+
+/* click brand identity thumbs */
+const biThumbs=Array.from(document.querySelectorAll('.bi-thumb'));
+biThumbs.forEach((th,i)=>{
+  th.addEventListener('click',()=>{
+    items=biThumbs.map(t=>({src:t.querySelector('img').src,t:t.querySelector('img').alt,s:'Candelia Brand Identity'}));
+    idx=i;showLb(i);
+  });
+});
+
+/* click other work items */
+function buildWork(){items=[];document.querySelectorAll('.wi:not(.hid)').forEach(w=>{const img=w.querySelector('img');if(img)items.push({src:img.src,t:w.dataset.t||'',s:w.dataset.s||''}); });}
+document.querySelectorAll('.wi').forEach(w=>{
+  w.addEventListener('click',()=>{
+    buildWork();
+    const img=w.querySelector('img');
+    idx=items.findIndex(x=>x.src===img.src);if(idx<0)idx=0;showLb(idx);
+  });
+});
+
+/* FILTER */
+document.querySelectorAll('.fb').forEach(btn=>{
   btn.addEventListener('click',()=>{
-    btns.forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.fb').forEach(b=>b.classList.remove('active'));
     btn.classList.add('active');
-    const f=btn.dataset.filter;
-    document.querySelectorAll('.work-item').forEach(item=>{
-      const show=f==='all'||item.dataset.cat===f;
-      item.classList.toggle('hidden',!show);
-    });
+    const f=btn.dataset.f;
+    document.querySelectorAll('.wi').forEach(w=>w.classList.toggle('hid',f!=='all'&&w.dataset.c!==f));
   });
 });
 
-/* ── LIGHTBOX ── */
-const overlay=document.getElementById('lbOverlay');
-const lbImg=document.getElementById('lbImg');
-const lbTitle=document.getElementById('lbTitle');
-const lbSub=document.getElementById('lbSub');
-let lbItems=[],lbIdx=0;
-
-function buildLbList(){
-  lbItems=[];
-  document.querySelectorAll('.work-item:not(.hidden)').forEach(item=>{
-    const img=item.querySelector('img');
-    if(img) lbItems.push({src:img.src,title:item.dataset.title||'',sub:item.dataset.sub||''});
+/* MOTION VIDEOS + VIDEO LIGHTBOX */
+const motionData=[
+  {v:'v0',p:'p0',c:'mc0',src:'images/motion-urbanstep.mp4',title:'Urban Step',sub:'Footwear Brand · Motion Poster'},
+  {v:'v1',p:'p1',c:'mc1',src:'images/motion-candelia.mp4',title:'Candelia',sub:'Candle Brand · Logo Animation'},
+  {v:'v2',p:'p2',c:'mc2',src:'images/motion-womensday.mp4',title:"Women's Day",sub:'Celebration Poster · Motion Design'},
+];
+function pauseAllCards(except){
+  motionData.forEach(o=>{
+    const v=document.getElementById(o.v),p=document.getElementById(o.p),c=document.getElementById(o.c);
+    if(v&&v!==except&&!v.paused){v.pause();p.style.opacity='1';c.classList.remove('playing');}
   });
 }
-
-function openLb(item){
-  buildLbList();
-  const img=item.querySelector('img');
-  if(!img)return;
-  lbIdx=lbItems.findIndex(x=>x.src===img.src);
-  if(lbIdx<0)lbIdx=0;
-  showLb(lbIdx);
-}
-
-function showLb(i){
-  const d=lbItems[i];
-  if(!d)return;
-  lbImg.src=d.src;
-  lbImg.alt=d.title;
-  lbTitle.textContent=d.title;
-  lbSub.textContent=d.sub;
-  overlay.classList.add('open');
-  document.body.style.overflow='hidden';
-}
-
-function closeLb(){
-  overlay.classList.remove('open');
-  document.body.style.overflow='';
-  setTimeout(()=>{lbImg.src='';},300);
-}
-
-/* Click work items to open lightbox */
-document.querySelectorAll('.work-item').forEach(item=>{
-  item.addEventListener('click',()=>openLb(item));
-});
-
-/* Also allow clicking candelia featured image */
-document.querySelectorAll('.feat-img-wrap img').forEach(img=>{
-  img.parentElement.style.cursor='pointer';
-  img.parentElement.addEventListener('click',()=>{
-    lbItems=[{src:img.src,title:'Candelia — Brand Identity',sub:'Featured Case Study'}];
-    lbIdx=0;showLb(0);
-  });
-});
-
-document.getElementById('lbClose').addEventListener('click',closeLb);
-document.getElementById('lbPrev').addEventListener('click',()=>{lbIdx=(lbIdx-1+lbItems.length)%lbItems.length;showLb(lbIdx);});
-document.getElementById('lbNext').addEventListener('click',()=>{lbIdx=(lbIdx+1)%lbItems.length;showLb(lbIdx);});
-
-/* Close on overlay click */
-overlay.addEventListener('click',e=>{if(e.target===overlay||e.target===document.querySelector('.lb-img-wrap'))closeLb();});
-
-/* Keyboard navigation */
-document.addEventListener('keydown',e=>{
-  if(!overlay.classList.contains('open'))return;
-  if(e.key==='Escape')closeLb();
-  if(e.key==='ArrowRight'){lbIdx=(lbIdx+1)%lbItems.length;showLb(lbIdx);}
-  if(e.key==='ArrowLeft'){lbIdx=(lbIdx-1+lbItems.length)%lbItems.length;showLb(lbIdx);}
-});
-
-/* Touch swipe for mobile */
-let touchStartX=0;
-overlay.addEventListener('touchstart',e=>{touchStartX=e.changedTouches[0].screenX;},{passive:true});
-overlay.addEventListener('touchend',e=>{
-  const dx=e.changedTouches[0].screenX-touchStartX;
-  if(Math.abs(dx)>50){
-    if(dx<0){lbIdx=(lbIdx+1)%lbItems.length;}else{lbIdx=(lbIdx-1+lbItems.length)%lbItems.length;}
-    showLb(lbIdx);
+motionData.forEach(({v,p,c})=>{
+  const vid=document.getElementById(v),pl=document.getElementById(p),card=document.getElementById(c);
+  if(!vid||!pl||!card)return;
+  function toggleCard(){
+    if(vid.paused){pauseAllCards(vid);vid.play().catch(()=>{});pl.style.opacity='0';card.classList.add('playing');}
+    else{vid.pause();pl.style.opacity='1';card.classList.remove('playing');}
   }
+  pl.addEventListener('click',e=>{e.stopPropagation();toggleCard();});
+  vid.addEventListener('click',e=>{e.stopPropagation();toggleCard();});
+  new IntersectionObserver(es=>{
+    es.forEach(en=>{
+      if(en.isIntersecting){vid.play().then(()=>{pl.style.opacity='0';card.classList.add('playing');}).catch(()=>{});}
+      else{vid.pause();pl.style.opacity='1';card.classList.remove('playing');}
+    });
+  },{threshold:.5}).observe(card);
+});
+
+/* VIDEO LIGHTBOX */
+const vlb=document.getElementById('vlb'),vlbVid=document.getElementById('vlbVid');
+const vlbTitle=document.getElementById('vlbTitle'),vlbSub=document.getElementById('vlbSub');
+const vlbPlay=document.getElementById('vlbPlay'),vlbMute=document.getElementById('vlbMute');
+let vlbMuted=true;
+function openVlb(i){
+  const d=motionData[i];
+  pauseAllCards(null);
+  vlbVid.src=d.src;vlbVid.muted=true;vlbMuted=true;
+  vlbMute.textContent='🔇 Tap to unmute';vlbMute.classList.remove('unmuted');
+  vlbPlay.innerHTML='&#9646;&#9646;';
+  vlbTitle.textContent=d.title;vlbSub.textContent=d.sub;
+  vlb.classList.add('open');document.body.style.overflow='hidden';
+  vlbVid.play().catch(()=>{});
+}
+function closeVlb(){
+  vlb.classList.remove('open');document.body.style.overflow='';
+  vlbVid.pause();setTimeout(()=>{vlbVid.src='';},300);
+}
+document.querySelectorAll('.mwatch-btn').forEach(btn=>{
+  btn.addEventListener('click',e=>{e.stopPropagation();openVlb(parseInt(btn.dataset.vi));});
+});
+document.querySelectorAll('.mexpand-hint').forEach((hint,i)=>{
+  hint.style.pointerEvents='auto';hint.style.cursor='pointer';
+  hint.addEventListener('click',e=>{e.stopPropagation();openVlb(i);});
+});
+document.getElementById('vlbX').addEventListener('click',closeVlb);
+vlb.addEventListener('click',e=>{if(e.target===vlb)closeVlb();});
+document.addEventListener('keydown',e=>{if(vlb.classList.contains('open')&&e.key==='Escape')closeVlb();});
+vlbPlay.addEventListener('click',()=>{
+  if(vlbVid.paused){vlbVid.play();vlbPlay.innerHTML='&#9646;&#9646;';}
+  else{vlbVid.pause();vlbPlay.innerHTML='&#9654;';}
+});
+vlbMute.addEventListener('click',()=>{
+  vlbMuted=!vlbMuted;vlbVid.muted=vlbMuted;
+  vlbMute.textContent=vlbMuted?'🔇 Tap to unmute':'🔊 Mute';
+  vlbMute.classList.toggle('unmuted',!vlbMuted);
 });
 </script>
 </body>
